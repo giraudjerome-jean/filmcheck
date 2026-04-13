@@ -560,7 +560,11 @@
         }
 
         if (!response.ok) {
-          throw new Error(payload.error || "Server error");
+          throw new Error(
+  [payload.error, payload.details, payload.supabaseUrl, payload.keyPrefix]
+    .filter(Boolean)
+    .join(" — ") || "Server error"
+);
         }
 
         if (!payload || !payload.title) {
