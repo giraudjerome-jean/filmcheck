@@ -5,8 +5,16 @@ const client = new OpenAI({
 });
 
 function safeJsonParse(text) {
+  if (!text) return null;
+
+  const cleaned = String(text)
+    .replace(/^```json\s*/i, "")
+    .replace(/^```\s*/i, "")
+    .replace(/\s*```$/, "")
+    .trim();
+
   try {
-    return JSON.parse(text);
+    return JSON.parse(cleaned);
   } catch {
     return null;
   }
@@ -23,6 +31,24 @@ function normalizeSources(raw) {
       note: item.note || "",
     }))
     .filter((item) => item.title || item.url);
+}
+
+function normalizePeople(raw) {
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .filter(Boolean)
+    .map((item) => ({
+      name: item.name || "",
+      role: item.role || "",
+      tag: item.tag || "Signal",
+      tag_class: item.tag_class || "yellow",
+      desc: item.desc || "",
+    }))
+    .filter((item) => item.name);
+}
+
+function todayIsoDate() {
+  return new Date().toISOString().slice(0, 10);
 }
 
 export default async function handler(req, res) {
@@ -52,6 +78,9 @@ Be careful with legal sensitivity:
 - do not overstate claims
 - when uncertain, say so
 - prefer a cautious, factual tone
+- if reliable information is limited, return a conservative low-confidence record
+- keep people descriptions short and readable
+- keep source notes optional and short
 
 Return this exact JSON shape:
 {
@@ -90,15 +119,13 @@ Return this exact JSON shape:
     }
   ]
 }
-
-If there is not enough reliable information, still return a conservative record with low confidence.
 `;
 
     const response = await client.responses.create({
       model: "gpt-5.4",
       input: prompt,
       tools: [{ type: "web_search" }],
-      max_output_tokens: 2500
+      max_output_tokens: 2500,
     });
 
     const text = response.output_text || "";
@@ -106,12 +133,37 @@ If there is not enough reliable information, still return a conservative record 
 
     if (!parsed) {
       return res.status(502).json({
-        error: "The model did not return valid JSON. Try again or tighten the prompt."
+        error: "The model did not return valid JSON. Try again."
       });
     }
 
-    parsed.sources = normalizeSources(parsed.sources);
-    return res.status(200).json(parsed);
+    const payload = {
+      title: parsed.title || title,
+      subtitle: parsed.subtitle || "",
+      status: parsed.status || "Limited caution",
+      status_class: parsed.status_class || "yellow",
+      vigilance_index: Number.isFinite(Number(parsed.vigilance_index)) ? Number(parsed.vigilance_index) : 0,
+      people_count: Number.isFinite(Number(parsed.people_count)) ? Number(parsed.people_count) : 0,
+      confidence: parsed.confidence || "Low",
+      generated_at: parsed.generated_at || todayIsoDate(),
+      hero_note: parsed.hero_note || parsed.summary || "",
+      summary: parsed.summary || "",
+      summary_items: Array.isArray(parsed.summary_items) ? parsed.summary_items.slice(0, 3) : [],
+      breakdown: {
+        convictions: Number(parsed?.breakdown?.convictions || 0),
+        proceedings: Number(parsed?.breakdown?.proceedings || 0),
+        accusations: Number(parsed?.breakdown?.accusations || 0),
+        controversies: Number(parsed?.breakdown?.controversies || 0),
+      },
+      people: normalizePeople(parsed.people),
+      sources: normalizeSources(parsed.sources),
+    };
+
+    if (!payload.people_count) {
+      payload.people_count = payload.people.length;
+    }
+
+    return res.status(200).json(payload);
   } catch (error) {
     return res.status(500).json({
       error: error?.message || "Unexpected server error"
