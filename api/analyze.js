@@ -73,20 +73,17 @@ You are generating a FilmCheck film record.
 Film title: ${title}
 
 Use web search to research the film and return ONLY valid JSON.
-Be careful with legal sensitivity:
-- clearly separate convictions, proceedings, accusations, controversies
-- do not overstate claims
-- when uncertain, say so
-- prefer a cautious, factual tone
-- if reliable information is limited, return a conservative low-confidence record
-- keep people descriptions short and readable
-- keep source notes optional and short
 
-Return this exact JSON shape:
+Rules:
+- status must be very short
+- never return long editorial sentences in status
+- keep descriptions concise
+
+Return:
 {
   "title": string,
   "subtitle": string,
-  "status": string,
+  "status": "Low vigilance" | "Limited caution" | "Moderate caution" | "High caution",
   "status_class": "green" | "yellow" | "orange" | "red",
   "vigilance_index": number,
   "people_count": number,
@@ -132,9 +129,7 @@ Return this exact JSON shape:
     const parsed = safeJsonParse(text);
 
     if (!parsed) {
-      return res.status(502).json({
-        error: "The model did not return valid JSON. Try again."
-      });
+      return res.status(502).json({ error: "Invalid JSON returned" });
     }
 
     const payload = {
@@ -142,31 +137,20 @@ Return this exact JSON shape:
       subtitle: parsed.subtitle || "",
       status: parsed.status || "Limited caution",
       status_class: parsed.status_class || "yellow",
-      vigilance_index: Number.isFinite(Number(parsed.vigilance_index)) ? Number(parsed.vigilance_index) : 0,
-      people_count: Number.isFinite(Number(parsed.people_count)) ? Number(parsed.people_count) : 0,
+      vigilance_index: Number(parsed.vigilance_index || 0),
+      people_count: Number(parsed.people_count || 0),
       confidence: parsed.confidence || "Low",
       generated_at: parsed.generated_at || todayIsoDate(),
       hero_note: parsed.hero_note || parsed.summary || "",
       summary: parsed.summary || "",
-      summary_items: Array.isArray(parsed.summary_items) ? parsed.summary_items.slice(0, 3) : [],
-      breakdown: {
-        convictions: Number(parsed?.breakdown?.convictions || 0),
-        proceedings: Number(parsed?.breakdown?.proceedings || 0),
-        accusations: Number(parsed?.breakdown?.accusations || 0),
-        controversies: Number(parsed?.breakdown?.controversies || 0),
-      },
+      summary_items: parsed.summary_items || [],
+      breakdown: parsed.breakdown || {},
       people: normalizePeople(parsed.people),
       sources: normalizeSources(parsed.sources),
     };
 
-    if (!payload.people_count) {
-      payload.people_count = payload.people.length;
-    }
-
     return res.status(200).json(payload);
   } catch (error) {
-    return res.status(500).json({
-      error: error?.message || "Unexpected server error"
-    });
+    return res.status(500).json({ error: error.message });
   }
 }
