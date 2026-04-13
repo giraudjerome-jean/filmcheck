@@ -5,8 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FilmCheck</title>
   <style>
-    @font-face { font-family: "Radial"; src: url("Radial Regular.otf") format("opentype"); font-weight: 400; font-style: normal; font-display: swap; }
-    @font-face { font-family: "Radial"; src: url("Radial Semi Bold.otf") format("opentype"); font-weight: 600; font-style: normal; font-display: swap; }
+    @font-face {
+      font-family: "Radial";
+      src: url("Radial Regular.otf") format("opentype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Radial";
+      src: url("Radial Semi Bold.otf") format("opentype");
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
 
     :root {
       --bg: #000;
@@ -27,6 +40,7 @@
 
     * { box-sizing: border-box; }
     html { background: var(--bg); scroll-behavior: smooth; }
+
     body {
       margin: 0;
       background:
@@ -41,7 +55,11 @@
     a { color: inherit; text-decoration: none; }
     button, input { font-family: inherit; }
 
-    .page { max-width: var(--max); margin: 0 auto; padding: 26px var(--gutter) 110px; }
+    .page {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 26px var(--gutter) 110px;
+    }
 
     .topbar {
       display: flex;
@@ -69,8 +87,16 @@
       box-shadow: 0 0 0 4px rgba(255,255,255,0.07);
     }
 
-    .topnav { display: flex; gap: 20px; color: var(--muted); }
-    .nav-link.active, .nav-link:hover { color: var(--text); }
+    .topnav {
+      display: flex;
+      gap: 20px;
+      color: var(--muted);
+    }
+
+    .nav-link.active,
+    .nav-link:hover {
+      color: var(--text);
+    }
 
     .hero {
       min-height: 76vh;
@@ -150,7 +176,9 @@
       border-radius: var(--radius);
     }
 
-    .search input::placeholder { color: rgba(244,244,241,0.38); }
+    .search input::placeholder {
+      color: rgba(244,244,241,0.38);
+    }
 
     .search button {
       height: 72px;
@@ -170,16 +198,13 @@
       cursor: default;
     }
 
-    .nav-sub,
     .examples-inline {
-      margin-top: 12px;
+      margin-top: 16px;
       font-size: 12px;
       letter-spacing: .06em;
       text-transform: uppercase;
       color: var(--soft);
     }
-
-    .examples-inline { margin-top: 16px; }
 
     .section {
       padding: 34px 0;
@@ -274,7 +299,9 @@
       max-width: 720px;
     }
 
-    .record-wrap { padding-top: 24px; }
+    .record-wrap {
+      padding-top: 24px;
+    }
 
     .crumbs {
       margin-top: 20px;
@@ -289,10 +316,15 @@
 
     .record-hero {
       display: grid;
-      grid-template-columns: minmax(0, 1.25fr) 320px;
+      grid-template-columns: minmax(0, 1.25fr) 360px;
       gap: 28px;
       padding: 30px 0 30px;
       border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+
+    .record-hero > * {
+      min-width: 0;
     }
 
     .record-subline {
@@ -308,31 +340,32 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 290px;
+      min-height: 320px;
+      overflow: hidden;
     }
 
     .score-card.green {
       background: linear-gradient(to bottom, rgba(120,180,136,0.12), rgba(120,180,136,0.02)), var(--panel);
       border-color: rgba(120,180,136,0.35);
     }
+
     .score-card.yellow {
       background: linear-gradient(to bottom, rgba(212,189,98,0.12), rgba(212,189,98,0.02)), var(--panel);
       border-color: rgba(212,189,98,0.35);
     }
+
     .score-card.orange {
       background: linear-gradient(to bottom, rgba(190,131,83,0.12), rgba(190,131,83,0.02)), var(--panel);
       border-color: rgba(190,131,83,0.35);
     }
+
     .score-card.red {
       background: linear-gradient(to bottom, rgba(197,102,102,0.12), rgba(197,102,102,0.02)), var(--panel);
       border-color: rgba(197,102,102,0.35);
     }
 
     .score-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 16px;
+      display: block;
     }
 
     .score-label {
@@ -343,12 +376,17 @@
     }
 
     .score-pill {
+      display: inline-block;
+      margin-top: 12px;
+      max-width: 100%;
       padding: 8px 10px;
       border: 1px solid var(--border);
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: .08em;
-      white-space: nowrap;
+      white-space: normal;
+      line-height: 1.25;
+      word-break: break-word;
     }
 
     .score-pill.green { color: var(--green); border-color: rgba(120,180,136,0.35); }
@@ -372,19 +410,21 @@
     }
 
     .score-status {
-      margin-top: 4px;
-      font-size: 22px;
-      line-height: 1;
+      margin-top: 10px;
+      font-size: 18px;
+      line-height: 1.05;
       text-transform: uppercase;
-      letter-spacing: -.02em;
+      letter-spacing: -.01em;
       font-weight: 600;
+      max-width: 100%;
     }
 
     .score-brief {
-      margin-top: 18px;
-      font-size: 15px;
-      line-height: 1.5;
+      margin-top: 16px;
+      font-size: 14px;
+      line-height: 1.45;
       color: var(--muted);
+      max-width: 100%;
     }
 
     .score-breakdown {
@@ -488,19 +528,15 @@
       border-color: rgba(204,122,122,0.35);
     }
 
-    .cache-note {
-      margin-top: 16px;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      color: var(--soft);
-    }
-
     @media (max-width: 980px) {
       .section-grid,
       .three-col,
       .record-hero {
         grid-template-columns: 1fr;
+      }
+
+      .score-card {
+        min-height: auto;
       }
 
       .source-row {
@@ -545,9 +581,7 @@
             <input id="film-input" type="text" placeholder="Rechercher un film…" />
             <button id="search-button" type="submit">Search</button>
           </form>
-          <div class="nav-sub">OpenAI web search · IA synthesis · Sources rendered</div>
           <div class="examples-inline">Exemples : Black Swan · Joker · Calmos</div>
-          <div class="cache-note">Les fiches déjà générées sont gardées dans le navigateur et réaffichées instantanément.</div>
           <div class="error-box hidden" id="error-box"></div>
         </div>
       </div>
@@ -555,7 +589,7 @@
       <section class="section">
         <div class="section-grid">
           <div><h2>Search → analyze → store</h2></div>
-          <div><p>When a film is searched for the first time, FilmCheck generates the record, stores it in browser cache, then serves it instantly the next time on the same device.</p></div>
+          <div><p>When a film is searched for the first time, FilmCheck generates the record, then serves it instantly the next time on the same device.</p></div>
         </div>
       </section>
 
@@ -627,8 +661,9 @@
     const form = document.getElementById("film-form");
     const button = document.getElementById("search-button");
     const errorBox = document.getElementById("error-box");
-    const CACHE_KEY = "filmcheck_records_v2";
-    const LAST_RECORD_KEY = "filmcheck_last_record_v2";
+
+    const CACHE_KEY = "filmcheck_records_v3";
+    const LAST_RECORD_KEY = "filmcheck_last_record_v3";
 
     function escapeHtml(value) {
       return String(value ?? "")
@@ -671,6 +706,7 @@
     }
 
     function saveToCache(record) {
+      if (!record || !record.title) return;
       const cache = loadCache();
       const key = slugify(record.title);
       cache[key] = record;
@@ -709,8 +745,7 @@
       return "red";
     }
 
-    function statusLabel(score, status) {
-      if (status) return status;
+    function statusLabel(score) {
       const tone = scoreTone(score);
       if (tone === "green") return "Low vigilance";
       if (tone === "yellow") return "Limited caution";
@@ -719,6 +754,8 @@
     }
 
     function renderFilm(record) {
+      if (!record || !record.title) return;
+
       const score = Number(record.vigilance_index ?? 0);
       const tone = scoreTone(score, record.status_class);
       const people = Array.isArray(record.people) ? record.people : [];
@@ -740,10 +777,11 @@
               <div>
                 <div class="score-top">
                   <div class="score-label">FilmCheck score</div>
-                  <div class="score-pill ${tone}">${escapeHtml(statusLabel(score, record.status))}</div>
+                  <div class="score-pill ${tone}">${escapeHtml(statusLabel(score))}</div>
                 </div>
+
                 <div class="score-number">${escapeHtml(score)}<span class="score-denom">/100</span></div>
-                <div class="score-status">${escapeHtml(statusLabel(score, record.status))}</div>
+                <div class="score-status">${escapeHtml(statusLabel(score))}</div>
                 <div class="score-brief">${escapeHtml(record.hero_note || record.summary || "")}</div>
               </div>
 
@@ -803,6 +841,7 @@
           </main>
         </div>
       `;
+
       showOnly("film");
     }
 
@@ -810,8 +849,12 @@
       errorBox.classList.add("hidden");
       errorBox.textContent = "";
 
-      const cached = getFromCache(title);
+      const cleanTitle = title.trim();
+      if (!cleanTitle) return;
+
+      const cached = getFromCache(cleanTitle);
       if (cached) {
+        saveToCache(cached);
         window.location.hash = "#/film";
         renderFilm(cached);
         return;
@@ -824,7 +867,7 @@
         const response = await fetch("/api/analyze", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ title })
+          body: JSON.stringify({ title: cleanTitle })
         });
 
         const text = await response.text();
