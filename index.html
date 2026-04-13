@@ -351,9 +351,15 @@
 
     function route() {
       const hash = window.location.hash || "#/";
-      if (hash === "#/methodology") showOnly("methodology");
-      else if (hash === "#/about") showOnly("about");
-      else showOnly("home");
+      if (hash === "#/methodology") {
+        showOnly("methodology");
+      } else if (hash === "#/about") {
+        showOnly("about");
+      } else if (hash === "#/film") {
+        showOnly("film");
+      } else {
+        showOnly("home");
+      }
     }
 
     window.addEventListener("hashchange", route);
