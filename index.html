@@ -7,89 +7,516 @@
   <style>
     @font-face { font-family: "Radial"; src: url("Radial Regular.otf") format("opentype"); font-weight: 400; font-style: normal; font-display: swap; }
     @font-face { font-family: "Radial"; src: url("Radial Semi Bold.otf") format("opentype"); font-weight: 600; font-style: normal; font-display: swap; }
+
     :root {
-      --bg:#000; --panel:#0d0d0d; --border:rgba(255,255,255,0.11); --border-strong:rgba(255,255,255,0.22);
-      --text:#f4f4f1; --muted:rgba(244,244,241,0.66); --soft:rgba(244,244,241,0.42);
-      --green:#8fbf9a; --yellow:#d8c06d; --orange:#b98559; --red:#cc7a7a;
-      --max:1280px; --gutter:34px; --radius:3px;
+      --bg: #000;
+      --panel: #0d0d0d;
+      --border: rgba(255,255,255,0.11);
+      --border-strong: rgba(255,255,255,0.22);
+      --text: #f4f4f1;
+      --muted: rgba(244,244,241,0.66);
+      --soft: rgba(244,244,241,0.42);
+      --green: #78b488;
+      --yellow: #d4bd62;
+      --orange: #be8353;
+      --red: #c56666;
+      --max: 1280px;
+      --gutter: 34px;
+      --radius: 3px;
     }
-    *{box-sizing:border-box} html{background:var(--bg);scroll-behavior:smooth}
-    body{
-      margin:0;
-      background:linear-gradient(to bottom, rgba(255,255,255,0.04), rgba(255,255,255,0) 220px), var(--bg);
-      color:var(--text); font-family:"Radial",Arial,Helvetica,sans-serif; -webkit-font-smoothing:antialiased; text-rendering:geometricPrecision;
+
+    * { box-sizing: border-box; }
+    html { background: var(--bg); scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        linear-gradient(to bottom, rgba(255,255,255,0.04), rgba(255,255,255,0) 220px),
+        var(--bg);
+      color: var(--text);
+      font-family: "Radial", Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
     }
-    a{color:inherit;text-decoration:none} button,input{font-family:inherit}
-    .page{max-width:var(--max);margin:0 auto;padding:26px var(--gutter) 110px}
-    .topbar{display:flex;justify-content:space-between;align-items:center;padding:4px 0 24px;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.08em;font-size:12px}
-    .brand{display:flex;align-items:center;gap:14px;cursor:pointer}
-    .brand-mark{width:10px;height:10px;background:var(--text);border-radius:50%;box-shadow:0 0 0 4px rgba(255,255,255,0.07)}
-    .topnav{display:flex;gap:20px;color:var(--muted)}
-    .nav-link.active,.nav-link:hover{color:var(--text)}
-    .hero{min-height:76vh;display:flex;flex-direction:column;justify-content:center;padding:60px 0 40px}
-    .eyebrow{color:var(--soft);text-transform:uppercase;letter-spacing:.1em;font-size:12px;margin-bottom:20px}
-    h1{margin:0;max-width:1080px;font-weight:600;font-size:clamp(68px,11vw,140px);line-height:.9;letter-spacing:-.045em;text-transform:uppercase}
-    h2{margin:0 0 16px;font-size:38px;line-height:.94;letter-spacing:-.035em;text-transform:uppercase;font-weight:600}
-    h3{margin:0 0 18px;font-size:16px;text-transform:uppercase;letter-spacing:.08em;font-weight:600}
-    .hero-sub{margin-top:26px;max-width:760px;font-size:clamp(22px,2.7vw,34px);line-height:1.08;letter-spacing:-.025em}
-    .search-wrap{margin-top:42px;max-width:920px;border-top:1px solid var(--border);padding-top:18px}
-    .search{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:stretch}
-    .search input{width:100%;height:72px;border:1px solid var(--border);background:var(--panel);color:var(--text);padding:0 22px;font-size:18px;outline:none;border-radius:var(--radius)}
-    .search input::placeholder{color:rgba(244,244,241,0.38)}
-    .search button{height:72px;min-width:160px;border:1px solid var(--border-strong);background:var(--text);color:#000;text-transform:uppercase;letter-spacing:.08em;font-size:12px;cursor:pointer;border-radius:var(--radius)}
-    .search button:disabled{opacity:.55;cursor:default}
-    .nav-sub,.examples-inline,.meta{margin-top:12px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}
-    .examples-inline{margin-top:16px}
-    .section{padding:34px 0;border-top:1px solid var(--border)}
-    .section-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:34px}
-    .section p{margin:0;color:var(--muted);font-size:17px;line-height:1.55;max-width:760px}
-    .three-col,.source-list{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .card,.film-card,.side-card,.panel,.person,.notice,.source-card{border:1px solid var(--border);background:var(--panel);padding:18px 20px}
-    .card{background:linear-gradient(to bottom, rgba(255,255,255,0.025), rgba(255,255,255,0)), var(--panel)}
-    .card-kicker,.chip-label,.person-role,.source-kicker{color:var(--soft);text-transform:uppercase;letter-spacing:.08em;font-size:11px}
-    .card-title,.person-name{font-size:30px;line-height:.94;letter-spacing:-.035em;text-transform:uppercase;margin-bottom:18px}
-    .film-title{font-size:28px;line-height:.95;letter-spacing:-.03em;text-transform:uppercase;margin-bottom:14px}
-    .card-text,.person-desc,.source-desc,.disclaimer{font-size:15px;line-height:1.54;color:var(--muted)}
-    .film-meta{font-size:12px;line-height:1.5;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-    .hidden{display:none}
-    .crumbs{margin-top:20px;color:var(--soft);text-transform:uppercase;letter-spacing:.09em;font-size:11px;display:flex;gap:10px;align-items:center}
-    .record-hero{display:grid;grid-template-columns:1.4fr .95fr;gap:34px;padding:34px 0 26px;border-bottom:1px solid var(--border)}
-    .record-subline{margin-top:16px;font-size:18px;color:var(--muted);line-height:1.4}
-    .local-nav{display:flex;flex-wrap:wrap;gap:18px;margin-top:20px;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--soft)}
-    .statline{margin-top:28px;display:flex;flex-wrap:wrap;gap:10px}
-    .chip{border:1px solid var(--border);background:var(--panel);padding:12px 14px;min-width:150px}
-    .chip-value{font-size:16px;line-height:1.05}
-    .chip strong{display:inline-block;font-size:28px;letter-spacing:-.03em;margin-right:6px}
-    .status-badge{display:inline-flex;align-items:center;gap:10px;text-transform:uppercase;letter-spacing:.08em;font-size:12px;margin-bottom:18px}
-    .dot{width:10px;height:10px;border-radius:50%;background:var(--yellow);box-shadow:0 0 0 4px rgba(216,192,109,0.12)}
-    .dot.orange{background:var(--orange);box-shadow:0 0 0 4px rgba(185,133,89,0.12)}
-    .dot.green{background:var(--green);box-shadow:0 0 0 4px rgba(143,191,154,0.12)}
-    .small-grid{margin-top:22px;display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-    .mini{border-top:1px solid var(--border);padding-top:12px}
-    .mini .n{font-size:26px;letter-spacing:-.03em;line-height:1;margin-bottom:6px}
-    .mini .l{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--soft)}
-    .main{display:grid;grid-template-columns:1.06fr .94fr;gap:34px;padding-top:34px}
-    .record-section{padding:0 0 34px;border-bottom:1px solid var(--border);margin-bottom:34px}
-    .summary-list,.timeline{display:grid;gap:12px;margin-top:18px}
-    .summary-item{border-left:1px solid rgba(255,255,255,0.22);padding-left:16px;font-size:15px;color:var(--text);line-height:1.45}
-    .person-top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:14px}
-    .tag{border:1px solid var(--border);padding:8px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);background:transparent;white-space:nowrap}
-    .tag.green{color:var(--green);border-color:rgba(143,191,154,0.28)}
-    .tag.yellow{color:var(--yellow);border-color:rgba(216,192,109,0.32)}
-    .tag.orange{color:var(--orange);border-color:rgba(185,133,89,0.32)}
-    .tag.red{color:var(--red);border-color:rgba(204,122,122,0.32)}
-    .metric{display:grid;grid-template-columns:1fr auto;gap:12px;padding-top:10px;border-top:1px solid var(--border);font-size:14px;color:var(--muted)}
-    .metric:first-child{padding-top:0;border-top:0}
-    .metric strong{color:var(--text);font-weight:400}
-    .notice{margin-top:18px;color:var(--yellow);border-color:rgba(216,192,109,0.32);font-size:12px;text-transform:uppercase;letter-spacing:.08em}
-    .error-box{margin-top:18px;border:1px solid rgba(204,122,122,0.35);color:var(--red);padding:14px 16px;font-size:13px;line-height:1.45}
-    .footer{margin-top:70px;padding-top:18px;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1.2fr;gap:24px;align-items:start}
-    .footer-links{display:flex;flex-wrap:wrap;gap:18px;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
-    .footer-note{font-size:12px;line-height:1.5;color:var(--soft);max-width:720px}
-    @media (max-width:980px){.section-grid,.three-col,.source-list,.main,.record-hero{grid-template-columns:1fr}}
-    @media (max-width:640px){
-      .page{padding:20px 18px 80px}.topnav{display:none}.search{grid-template-columns:1fr}.person-top{flex-direction:column;align-items:flex-start}
-      h1{font-size:60px}.statline{display:grid;grid-template-columns:1fr 1fr}.footer{grid-template-columns:1fr}
+
+    a { color: inherit; text-decoration: none; }
+    button, input { font-family: inherit; }
+
+    .page { max-width: var(--max); margin: 0 auto; padding: 26px var(--gutter) 110px; }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 0 24px;
+      border-bottom: 1px solid var(--border);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-size: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+    }
+
+    .brand-mark {
+      width: 10px;
+      height: 10px;
+      background: var(--text);
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(255,255,255,0.07);
+    }
+
+    .topnav { display: flex; gap: 20px; color: var(--muted); }
+    .nav-link.active, .nav-link:hover { color: var(--text); }
+
+    .hero {
+      min-height: 76vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 0 40px;
+    }
+
+    .eyebrow {
+      color: var(--soft);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      font-size: 12px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 1080px;
+      font-weight: 600;
+      font-size: clamp(68px, 11vw, 140px);
+      line-height: .9;
+      letter-spacing: -.045em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      font-size: 34px;
+      line-height: .95;
+      letter-spacing: -.035em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    h3 {
+      margin: 0 0 14px;
+      font-size: 15px;
+      line-height: 1;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .hero-sub {
+      margin-top: 26px;
+      max-width: 760px;
+      font-size: clamp(22px, 2.7vw, 34px);
+      line-height: 1.08;
+      letter-spacing: -.025em;
+    }
+
+    .search-wrap {
+      margin-top: 42px;
+      max-width: 980px;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+    }
+
+    .search {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .search input {
+      width: 100%;
+      height: 72px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      padding: 0 22px;
+      font-size: 18px;
+      outline: none;
+      border-radius: var(--radius);
+    }
+
+    .search input::placeholder { color: rgba(244,244,241,0.38); }
+
+    .search button {
+      height: 72px;
+      min-width: 160px;
+      border: 1px solid var(--border-strong);
+      background: var(--text);
+      color: #000;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-size: 12px;
+      cursor: pointer;
+      border-radius: var(--radius);
+    }
+
+    .search button:disabled {
+      opacity: .55;
+      cursor: default;
+    }
+
+    .nav-sub,
+    .examples-inline {
+      margin-top: 12px;
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--soft);
+    }
+
+    .examples-inline { margin-top: 16px; }
+
+    .section {
+      padding: 34px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 34px;
+    }
+
+    .section p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.55;
+      max-width: 760px;
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 16px;
+    }
+
+    .card,
+    .person-card,
+    .source-row,
+    .score-card,
+    .error-box {
+      border: 1px solid var(--border);
+      background: var(--panel);
+    }
+
+    .card {
+      padding: 18px 20px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.025), rgba(255,255,255,0)), var(--panel);
+    }
+
+    .card-kicker,
+    .person-role,
+    .source-domain {
+      color: var(--soft);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-size: 11px;
+    }
+
+    .card-title {
+      font-size: 30px;
+      line-height: .94;
+      letter-spacing: -.035em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .card-text,
+    .person-desc,
+    .disclaimer {
+      font-size: 15px;
+      line-height: 1.54;
+      color: var(--muted);
+    }
+
+    .hidden { display: none; }
+
+    .footer {
+      margin-top: 70px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+    }
+
+    .footer-note {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--soft);
+      max-width: 720px;
+    }
+
+    .record-wrap { padding-top: 24px; }
+
+    .crumbs {
+      margin-top: 20px;
+      color: var(--soft);
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      font-size: 11px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .record-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) 320px;
+      gap: 28px;
+      padding: 30px 0 30px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .record-subline {
+      margin-top: 16px;
+      font-size: 18px;
+      color: var(--muted);
+      line-height: 1.4;
+      max-width: 760px;
+    }
+
+    .score-card {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 290px;
+    }
+
+    .score-card.green {
+      background: linear-gradient(to bottom, rgba(120,180,136,0.12), rgba(120,180,136,0.02)), var(--panel);
+      border-color: rgba(120,180,136,0.35);
+    }
+    .score-card.yellow {
+      background: linear-gradient(to bottom, rgba(212,189,98,0.12), rgba(212,189,98,0.02)), var(--panel);
+      border-color: rgba(212,189,98,0.35);
+    }
+    .score-card.orange {
+      background: linear-gradient(to bottom, rgba(190,131,83,0.12), rgba(190,131,83,0.02)), var(--panel);
+      border-color: rgba(190,131,83,0.35);
+    }
+    .score-card.red {
+      background: linear-gradient(to bottom, rgba(197,102,102,0.12), rgba(197,102,102,0.02)), var(--panel);
+      border-color: rgba(197,102,102,0.35);
+    }
+
+    .score-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .score-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--soft);
+    }
+
+    .score-pill {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      white-space: nowrap;
+    }
+
+    .score-pill.green { color: var(--green); border-color: rgba(120,180,136,0.35); }
+    .score-pill.yellow { color: var(--yellow); border-color: rgba(212,189,98,0.35); }
+    .score-pill.orange { color: var(--orange); border-color: rgba(190,131,83,0.35); }
+    .score-pill.red { color: var(--red); border-color: rgba(197,102,102,0.35); }
+
+    .score-number {
+      font-size: 132px;
+      line-height: .86;
+      letter-spacing: -.06em;
+      font-weight: 600;
+      margin-top: 18px;
+    }
+
+    .score-denom {
+      font-size: 28px;
+      color: var(--muted);
+      letter-spacing: 0;
+      margin-left: 6px;
+    }
+
+    .score-status {
+      margin-top: 4px;
+      font-size: 22px;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: -.02em;
+      font-weight: 600;
+    }
+
+    .score-brief {
+      margin-top: 18px;
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .score-breakdown {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 14px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    .score-item-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--soft);
+    }
+
+    .score-item-value {
+      font-size: 28px;
+      line-height: .95;
+      margin-top: 4px;
+    }
+
+    .record-main {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+      padding-top: 30px;
+    }
+
+    .people-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .person-card {
+      padding: 16px 18px;
+    }
+
+    .person-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .person-name {
+      font-size: 26px;
+      line-height: .95;
+      letter-spacing: -.03em;
+      text-transform: uppercase;
+    }
+
+    .person-tag {
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      white-space: nowrap;
+    }
+
+    .person-tag.green { color: var(--green); border-color: rgba(120,180,136,0.35); }
+    .person-tag.yellow { color: var(--yellow); border-color: rgba(212,189,98,0.35); }
+    .person-tag.orange { color: var(--orange); border-color: rgba(190,131,83,0.35); }
+    .person-tag.red { color: var(--red); border-color: rgba(197,102,102,0.35); }
+
+    .source-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+      margin-top: 14px;
+    }
+
+    .source-row {
+      padding: 12px 0;
+      background: transparent;
+      border-left: 0;
+      border-right: 0;
+      border-bottom: 0;
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .source-title {
+      font-size: 14px;
+      line-height: 1.35;
+      color: var(--text);
+    }
+
+    .error-box {
+      margin-top: 18px;
+      color: var(--red);
+      padding: 14px 16px;
+      font-size: 13px;
+      line-height: 1.45;
+      border-color: rgba(204,122,122,0.35);
+    }
+
+    .cache-note {
+      margin-top: 16px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--soft);
+    }
+
+    @media (max-width: 980px) {
+      .section-grid,
+      .three-col,
+      .record-hero {
+        grid-template-columns: 1fr;
+      }
+
+      .source-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page { padding: 20px 18px 80px; }
+      .topnav { display: none; }
+      .search { grid-template-columns: 1fr; }
+      h1 { font-size: 60px; }
+      .score-number { font-size: 94px; }
+      .person-top { flex-direction: column; align-items: flex-start; }
+      .footer { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -112,6 +539,7 @@
         <div class="eyebrow">Transparency tool for film credits</div>
         <h1>FilmCheck</h1>
         <div class="hero-sub">Voir un film, c’est aussi choisir les personnes qui l’ont fait.</div>
+
         <div class="search-wrap">
           <form class="search" id="film-form">
             <input id="film-input" type="text" placeholder="Rechercher un film…" />
@@ -119,24 +547,37 @@
           </form>
           <div class="nav-sub">OpenAI web search · IA synthesis · Sources rendered</div>
           <div class="examples-inline">Exemples : Black Swan · Joker · Calmos</div>
+          <div class="cache-note">Les fiches déjà générées sont gardées dans le navigateur et réaffichées instantanément.</div>
           <div class="error-box hidden" id="error-box"></div>
         </div>
       </div>
 
       <section class="section">
         <div class="section-grid">
-          <div><h2>Search → analyze → render</h2></div>
-          <div><p>This version calls a backend endpoint, runs a web-backed AI analysis, then renders a film record with people, status and sources.</p></div>
+          <div><h2>Search → analyze → store</h2></div>
+          <div><p>When a film is searched for the first time, FilmCheck generates the record, stores it in browser cache, then serves it instantly the next time on the same device.</p></div>
         </div>
       </section>
 
       <section class="section">
         <div class="section-grid">
-          <div><h2>What you deploy</h2></div>
+          <div><h2>Read in one glance</h2></div>
           <div class="three-col">
-            <div class="card"><div class="card-kicker">Front</div><div class="card-title">index.html</div><div class="card-text">Single front file, same visual language, ready to call your backend.</div></div>
-            <div class="card"><div class="card-kicker">Back</div><div class="card-title">api/analyze.js</div><div class="card-text">Serverless function calling the OpenAI Responses API with web search enabled.</div></div>
-            <div class="card"><div class="card-kicker">Config</div><div class="card-title">ENV key</div><div class="card-text">Keep the API key server-side only. Never expose it in the browser.</div></div>
+            <div class="card">
+              <div class="card-kicker">01</div>
+              <div class="card-title">Big color score</div>
+              <div class="card-text">The film should immediately read as green, yellow, orange or red.</div>
+            </div>
+            <div class="card">
+              <div class="card-kicker">02</div>
+              <div class="card-title">Key people first</div>
+              <div class="card-text">After the score, the next question is always: who is involved and why?</div>
+            </div>
+            <div class="card">
+              <div class="card-kicker">03</div>
+              <div class="card-title">Compact sources</div>
+              <div class="card-text">Sources should reassure, not dominate the page.</div>
+            </div>
           </div>
         </div>
       </section>
@@ -148,7 +589,13 @@
       <section class="section" style="padding-top:42px;border-top:0;">
         <div class="eyebrow">Methodology</div>
         <h1>How FilmCheck reads a record</h1>
-        <div class="hero-sub" style="max-width:760px;font-size:18px;line-height:1.4;color:var(--muted);letter-spacing:0;">This page remains essential: the system should separate convictions, proceedings, accusations and controversies.</div>
+        <div class="hero-sub" style="max-width:760px;font-size:18px;line-height:1.4;color:var(--muted);letter-spacing:0;">This page keeps the method outside the film record itself.</div>
+      </section>
+      <section class="section">
+        <div class="section-grid">
+          <div><h2>Signal types</h2></div>
+          <div><p>FilmCheck separates convictions, proceedings, accusations and controversies. A film page should show those signals clearly without turning into a technical dashboard.</p></div>
+        </div>
       </section>
     </section>
 
@@ -156,7 +603,7 @@
       <section class="section" style="padding-top:42px;border-top:0;">
         <div class="eyebrow">About</div>
         <h1>Transparency for film credits</h1>
-        <div class="hero-sub" style="max-width:760px;font-size:18px;line-height:1.4;color:var(--muted);letter-spacing:0;">FilmCheck is conceived as a transparency tool, not a gossip product and not a tribunal.</div>
+        <div class="hero-sub" style="max-width:760px;font-size:18px;line-height:1.4;color:var(--muted);letter-spacing:0;">FilmCheck is a reading tool, not a tribunal.</div>
       </section>
     </section>
 
@@ -180,6 +627,8 @@
     const form = document.getElementById("film-form");
     const button = document.getElementById("search-button");
     const errorBox = document.getElementById("error-box");
+    const CACHE_KEY = "filmcheck_records_v2";
+    const LAST_RECORD_KEY = "filmcheck_last_record_v2";
 
     function escapeHtml(value) {
       return String(value ?? "")
@@ -188,6 +637,15 @@
         .replaceAll(">", "&gt;")
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#39;");
+    }
+
+    function slugify(value) {
+      return String(value || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "");
     }
 
     function setActiveNav(which) {
@@ -204,111 +662,146 @@
       setActiveNav(which === "film" ? "search" : which);
     }
 
+    function loadCache() {
+      try {
+        return JSON.parse(localStorage.getItem(CACHE_KEY) || "{}");
+      } catch {
+        return {};
+      }
+    }
+
+    function saveToCache(record) {
+      const cache = loadCache();
+      const key = slugify(record.title);
+      cache[key] = record;
+      localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
+      localStorage.setItem(LAST_RECORD_KEY, JSON.stringify(record));
+    }
+
+    function getFromCache(title) {
+      const cache = loadCache();
+      return cache[slugify(title)] || null;
+    }
+
+    function getLastRecord() {
+      try {
+        return JSON.parse(localStorage.getItem(LAST_RECORD_KEY) || "null");
+      } catch {
+        return null;
+      }
+    }
+
     function tagClassFromStatus(status) {
       const s = String(status || "").toLowerCase();
-      if (s.includes("none") || s.includes("clean") || s.includes("no signal")) return "green";
-      if (s.includes("moderate") || s.includes("proceeding")) return "orange";
-      if (s.includes("high") || s.includes("conviction")) return "red";
+      if (s.includes("none") || s.includes("clean") || s.includes("no signal") || s.includes("low")) return "green";
+      if (s.includes("limited") || s.includes("yellow")) return "yellow";
+      if (s.includes("moderate") || s.includes("proceeding") || s.includes("orange")) return "orange";
+      if (s.includes("high") || s.includes("conviction") || s.includes("red")) return "red";
       return "yellow";
     }
 
+    function scoreTone(score, explicit) {
+      if (explicit && ["green", "yellow", "orange", "red"].includes(explicit)) return explicit;
+      const n = Number(score || 0);
+      if (n < 20) return "green";
+      if (n < 45) return "yellow";
+      if (n < 70) return "orange";
+      return "red";
+    }
+
+    function statusLabel(score, status) {
+      if (status) return status;
+      const tone = scoreTone(score);
+      if (tone === "green") return "Low vigilance";
+      if (tone === "yellow") return "Limited caution";
+      if (tone === "orange") return "Moderate caution";
+      return "High caution";
+    }
+
     function renderFilm(record) {
-      const statusClass = record.status_class || tagClassFromStatus(record.status);
-      const dotClass = statusClass === "orange" ? "orange" : statusClass === "green" ? "green" : "";
+      const score = Number(record.vigilance_index ?? 0);
+      const tone = scoreTone(score, record.status_class);
       const people = Array.isArray(record.people) ? record.people : [];
       const sources = Array.isArray(record.sources) ? record.sources : [];
       const breakdown = record.breakdown || { convictions: 0, proceedings: 0, accusations: 0, controversies: 0 };
 
       filmView.innerHTML = `
-        <div class="crumbs"><span>Home</span><span>/</span><span>Films</span><span>/</span><span>${escapeHtml(record.title)}</span></div>
-        <section class="record-hero">
-          <div>
-            <div class="eyebrow">AI generated record</div>
-            <h1>${escapeHtml(record.title)}</h1>
-            <div class="record-subline">${escapeHtml(record.subtitle || "")}</div>
-            <div class="local-nav">
-              <a href="#summary">Summary</a>
-              <a href="#people">People involved</a>
-              <a href="#sources">Sources</a>
-            </div>
-            <div class="statline">
-              <div class="chip"><div class="chip-label">Status</div><div class="chip-value">${escapeHtml(record.status || "Generated analysis")}</div></div>
-              <div class="chip"><div class="chip-label">Vigilance index</div><div class="chip-value"><strong>${escapeHtml(record.vigilance_index ?? 0)}</strong>/100</div></div>
-              <div class="chip"><div class="chip-label">People concerned</div><div class="chip-value"><strong>${escapeHtml(record.people_count ?? people.length)}</strong> linked profiles</div></div>
-              <div class="chip"><div class="chip-label">Confidence</div><div class="chip-value">${escapeHtml(record.confidence || "Medium")}</div></div>
-            </div>
-          </div>
-          <aside class="panel">
-            <div class="status-badge"><span class="dot ${dotClass}"></span><span>${escapeHtml(record.status || "Generated analysis")}</span></div>
-            <h2>Read in seconds</h2>
-            <p>${escapeHtml(record.hero_note || record.summary || "")}</p>
-            <div class="small-grid">
-              <div class="mini"><div class="n">${escapeHtml(breakdown.convictions ?? 0)}</div><div class="l">Convictions</div></div>
-              <div class="mini"><div class="n">${escapeHtml(breakdown.proceedings ?? 0)}</div><div class="l">Proceedings</div></div>
-              <div class="mini"><div class="n">${escapeHtml(breakdown.accusations ?? 0)}</div><div class="l">Public accusations</div></div>
-              <div class="mini"><div class="n">${escapeHtml(breakdown.controversies ?? 0)}</div><div class="l">Controversies</div></div>
-            </div>
-          </aside>
-        </section>
+        <div class="record-wrap">
+          <div class="crumbs"><span>Home</span><span>/</span><span>Films</span><span>/</span><span>${escapeHtml(record.title)}</span></div>
 
-        <main class="main">
-          <div>
-            <section class="record-section" id="summary">
-              <h2>Quick summary</h2>
-              <p>${escapeHtml(record.summary || "")}</p>
-              <div class="summary-list">
-                ${(Array.isArray(record.summary_items) ? record.summary_items : []).map(item => `<div class="summary-item">${escapeHtml(item)}</div>`).join("")}
+          <section class="record-hero">
+            <div>
+              <div class="eyebrow">Film record</div>
+              <h1>${escapeHtml(record.title)}</h1>
+              <div class="record-subline">${escapeHtml(record.subtitle || "")}</div>
+            </div>
+
+            <aside class="score-card ${tone}">
+              <div>
+                <div class="score-top">
+                  <div class="score-label">FilmCheck score</div>
+                  <div class="score-pill ${tone}">${escapeHtml(statusLabel(score, record.status))}</div>
+                </div>
+                <div class="score-number">${escapeHtml(score)}<span class="score-denom">/100</span></div>
+                <div class="score-status">${escapeHtml(statusLabel(score, record.status))}</div>
+                <div class="score-brief">${escapeHtml(record.hero_note || record.summary || "")}</div>
               </div>
-            </section>
 
+              <div class="score-breakdown">
+                <div>
+                  <div class="score-item-label">Convictions</div>
+                  <div class="score-item-value">${escapeHtml(breakdown.convictions ?? 0)}</div>
+                </div>
+                <div>
+                  <div class="score-item-label">Proceedings</div>
+                  <div class="score-item-value">${escapeHtml(breakdown.proceedings ?? 0)}</div>
+                </div>
+                <div>
+                  <div class="score-item-label">Accusations</div>
+                  <div class="score-item-value">${escapeHtml(breakdown.accusations ?? 0)}</div>
+                </div>
+                <div>
+                  <div class="score-item-label">Controversies</div>
+                  <div class="score-item-value">${escapeHtml(breakdown.controversies ?? 0)}</div>
+                </div>
+              </div>
+            </aside>
+          </section>
+
+          <main class="record-main">
             <section class="record-section" id="people">
-              <h2>People concerned</h2>
-              <div class="timeline">
-                ${people.map(person => `
-                  <article class="person">
+              <h2>Key people</h2>
+              <div class="people-grid">
+                ${people.length ? people.map(person => `
+                  <article class="person-card">
                     <div class="person-top">
                       <div>
                         <div class="person-name">${escapeHtml(person.name)}</div>
                         <div class="person-role">${escapeHtml(person.role || "")}</div>
                       </div>
-                      <div class="tag ${escapeHtml(person.tag_class || tagClassFromStatus(person.tag || ""))}">${escapeHtml(person.tag || "Signal")}</div>
+                      <div class="person-tag ${escapeHtml(person.tag_class || tagClassFromStatus(person.tag || ""))}">
+                        ${escapeHtml(person.tag || "Signal")}
+                      </div>
                     </div>
                     <div class="person-desc">${escapeHtml(person.desc || "")}</div>
                   </article>
-                `).join("")}
+                `).join("") : `<div class="card-text">No specific person was returned for this record.</div>`}
               </div>
             </section>
 
             <section class="record-section" id="sources">
               <h2>Sources</h2>
               <div class="source-list">
-                ${sources.map(source => `
-                  <a class="source-card" href="${escapeHtml(source.url || "#")}" target="_blank" rel="noopener noreferrer">
-                    <div class="source-kicker">${escapeHtml(source.domain || "Source")}</div>
-                    <div class="card-title" style="font-size:22px;margin-bottom:10px;">${escapeHtml(source.title || source.url || "")}</div>
-                    <div class="source-desc">${escapeHtml(source.note || "")}</div>
+                ${sources.length ? sources.map(source => `
+                  <a class="source-row" href="${escapeHtml(source.url || "#")}" target="_blank" rel="noopener noreferrer">
+                    <div class="source-domain">${escapeHtml(source.domain || "Source")}</div>
+                    <div class="source-title">${escapeHtml(source.title || source.url || "")}</div>
                   </a>
-                `).join("")}
+                `).join("") : `<div class="card-text">No source was returned.</div>`}
               </div>
             </section>
-          </div>
-
-          <aside>
-            <div class="side-card">
-              <h3>Record details</h3>
-              <div class="metric-list">
-                <div class="metric"><span>Generated at</span><strong>${escapeHtml(record.generated_at || "")}</strong></div>
-                <div class="metric"><span>Record mode</span><strong>Web-backed AI analysis</strong></div>
-                <div class="metric"><span>Model confidence</span><strong>${escapeHtml(record.confidence || "Medium")}</strong></div>
-                <div class="metric"><span>Source count</span><strong>${escapeHtml(sources.length)}</strong></div>
-              </div>
-            </div>
-            <div class="side-card">
-              <h3>Methodology note</h3>
-              <div class="disclaimer">This page is generated from a backend analysis flow and should still be reviewed before public publication, especially for legally sensitive claims.</div>
-            </div>
-          </aside>
-        </main>
+          </main>
+        </div>
       `;
       showOnly("film");
     }
@@ -316,18 +809,44 @@
     async function analyzeFilm(title) {
       errorBox.classList.add("hidden");
       errorBox.textContent = "";
+
+      const cached = getFromCache(title);
+      if (cached) {
+        window.location.hash = "#/film";
+        renderFilm(cached);
+        return;
+      }
+
       button.disabled = true;
       button.textContent = "Loading";
+
       try {
         const response = await fetch("/api/analyze", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ title })
         });
-        const payload = await response.json();
-        if (!response.ok) throw new Error(payload.error || "Unknown server error");
-        renderFilm(payload);
+
+        const text = await response.text();
+
+        let payload;
+        try {
+          payload = JSON.parse(text);
+        } catch {
+          throw new Error("Invalid JSON returned by API");
+        }
+
+        if (!response.ok) {
+          throw new Error(payload.error || "Server error");
+        }
+
+        if (!payload || !payload.title) {
+          throw new Error("Empty or invalid film data");
+        }
+
+        saveToCache(payload);
         window.location.hash = "#/film";
+        renderFilm(payload);
       } catch (err) {
         errorBox.textContent = err.message || "Unable to analyze this film.";
         errorBox.classList.remove("hidden");
@@ -356,7 +875,12 @@
       } else if (hash === "#/about") {
         showOnly("about");
       } else if (hash === "#/film") {
-        showOnly("film");
+        const last = getLastRecord();
+        if (last) {
+          renderFilm(last);
+        } else {
+          showOnly("home");
+        }
       } else {
         showOnly("home");
       }
