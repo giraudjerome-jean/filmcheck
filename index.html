@@ -1,936 +1,160 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FilmCheck</title>
-  <style>
-    @font-face {
-      font-family: "Radial";
-      src: url("Radial Regular.otf") format("opentype");
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-    }
-
-    @font-face {
-      font-family: "Radial";
-      src: url("Radial Semi Bold.otf") format("opentype");
-      font-weight: 600;
-      font-style: normal;
-      font-display: swap;
-    }
-
-    :root {
-      --bg: #000;
-      --panel: #0d0d0d;
-      --border: rgba(255,255,255,0.11);
-      --border-strong: rgba(255,255,255,0.22);
-      --text: #f4f4f1;
-      --muted: rgba(244,244,241,0.66);
-      --soft: rgba(244,244,241,0.42);
-      --green: #78b488;
-      --yellow: #d4bd62;
-      --orange: #be8353;
-      --red: #c56666;
-      --max: 1280px;
-      --gutter: 34px;
-      --radius: 3px;
-    }
-
-    * { box-sizing: border-box; }
-    html { background: var(--bg); scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      background:
-        linear-gradient(to bottom, rgba(255,255,255,0.04), rgba(255,255,255,0) 220px),
-        var(--bg);
-      color: var(--text);
-      font-family: "Radial", Arial, Helvetica, sans-serif;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: geometricPrecision;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    button, input { font-family: inherit; }
-
-    .page {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 26px var(--gutter) 110px;
-    }
-
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 4px 0 24px;
-      border-bottom: 1px solid var(--border);
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      font-size: 12px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      cursor: pointer;
-    }
-
-    .brand-mark {
-      width: 10px;
-      height: 10px;
-      background: var(--text);
-      border-radius: 50%;
-      box-shadow: 0 0 0 4px rgba(255,255,255,0.07);
-    }
-
-    .topnav {
-      display: flex;
-      gap: 20px;
-      color: var(--muted);
-    }
-
-    .nav-link.active,
-    .nav-link:hover {
-      color: var(--text);
-    }
-
-    .hero {
-      min-height: 76vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 60px 0 40px;
-    }
-
-    .eyebrow {
-      color: var(--soft);
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      font-size: 12px;
-      margin-bottom: 20px;
-    }
-
-    h1 {
-      margin: 0;
-      max-width: 1080px;
-      font-weight: 600;
-      font-size: clamp(68px, 11vw, 140px);
-      line-height: .9;
-      letter-spacing: -.045em;
-      text-transform: uppercase;
-    }
-
-    h2 {
-      margin: 0 0 16px;
-      font-size: 34px;
-      line-height: .95;
-      letter-spacing: -.035em;
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-
-    h3 {
-      margin: 0 0 14px;
-      font-size: 15px;
-      line-height: 1;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-
-    .hero-sub {
-      margin-top: 26px;
-      max-width: 760px;
-      font-size: clamp(22px, 2.7vw, 34px);
-      line-height: 1.08;
-      letter-spacing: -.025em;
-    }
-
-    .search-wrap {
-      margin-top: 42px;
-      max-width: 980px;
-      border-top: 1px solid var(--border);
-      padding-top: 18px;
-    }
-
-    .search {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-      align-items: stretch;
-    }
-
-    .search input {
-      width: 100%;
-      height: 72px;
-      border: 1px solid var(--border);
-      background: var(--panel);
-      color: var(--text);
-      padding: 0 22px;
-      font-size: 18px;
-      outline: none;
-      border-radius: var(--radius);
-    }
-
-    .search input::placeholder {
-      color: rgba(244,244,241,0.38);
-    }
-
-    .search button {
-      height: 72px;
-      min-width: 160px;
-      border: 1px solid var(--border-strong);
-      background: var(--text);
-      color: #000;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      font-size: 12px;
-      cursor: pointer;
-      border-radius: var(--radius);
-    }
-
-    .search button:disabled {
-      opacity: .55;
-      cursor: default;
-    }
-
-    .examples-inline {
-      margin-top: 16px;
-      font-size: 12px;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: var(--soft);
-    }
-
-    .section {
-      padding: 34px 0;
-      border-top: 1px solid var(--border);
-    }
-
-    .section-grid {
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 34px;
-    }
-
-    .section p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.55;
-      max-width: 760px;
-    }
-
-    .three-col {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 16px;
-    }
-
-    .card,
-    .person-card,
-    .source-row,
-    .score-card,
-    .error-box {
-      border: 1px solid var(--border);
-      background: var(--panel);
-    }
-
-    .card {
-      padding: 18px 20px;
-      background: linear-gradient(to bottom, rgba(255,255,255,0.025), rgba(255,255,255,0)), var(--panel);
-    }
-
-    .card-kicker,
-    .person-role,
-    .source-domain {
-      color: var(--soft);
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      font-size: 11px;
-    }
-
-    .card-title {
-      font-size: 30px;
-      line-height: .94;
-      letter-spacing: -.035em;
-      text-transform: uppercase;
-      margin-bottom: 18px;
-    }
-
-    .card-text,
-    .person-desc,
-    .disclaimer {
-      font-size: 15px;
-      line-height: 1.54;
-      color: var(--muted);
-    }
-
-    .hidden { display: none; }
-
-    .footer {
-      margin-top: 70px;
-      padding-top: 18px;
-      border-top: 1px solid var(--border);
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 24px;
-      align-items: start;
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      color: var(--muted);
-    }
-
-    .footer-note {
-      font-size: 12px;
-      line-height: 1.5;
-      color: var(--soft);
-      max-width: 720px;
-    }
-
-    .record-wrap {
-      padding-top: 24px;
-    }
-
-    .crumbs {
-      margin-top: 20px;
-      color: var(--soft);
-      text-transform: uppercase;
-      letter-spacing: .09em;
-      font-size: 11px;
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .record-hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.25fr) 360px;
-      gap: 28px;
-      padding: 30px 0 30px;
-      border-bottom: 1px solid var(--border);
-      align-items: start;
-    }
-
-    .record-hero > * {
-      min-width: 0;
-    }
-
-    .record-subline {
-      margin-top: 16px;
-      font-size: 18px;
-      color: var(--muted);
-      line-height: 1.4;
-      max-width: 760px;
-    }
-
-    .score-card {
-      padding: 22px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 320px;
-      overflow: hidden;
-    }
-
-    .score-card.green {
-      background: linear-gradient(to bottom, rgba(120,180,136,0.12), rgba(120,180,136,0.02)), var(--panel);
-      border-color: rgba(120,180,136,0.35);
-    }
-
-    .score-card.yellow {
-      background: linear-gradient(to bottom, rgba(212,189,98,0.12), rgba(212,189,98,0.02)), var(--panel);
-      border-color: rgba(212,189,98,0.35);
-    }
-
-    .score-card.orange {
-      background: linear-gradient(to bottom, rgba(190,131,83,0.12), rgba(190,131,83,0.02)), var(--panel);
-      border-color: rgba(190,131,83,0.35);
-    }
-
-    .score-card.red {
-      background: linear-gradient(to bottom, rgba(197,102,102,0.12), rgba(197,102,102,0.02)), var(--panel);
-      border-color: rgba(197,102,102,0.35);
-    }
-
-    .score-top {
-      display: block;
-    }
-
-    .score-label {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      color: var(--soft);
-    }
-
-    .score-pill {
-      display: inline-block;
-      margin-top: 12px;
-      max-width: 100%;
-      padding: 8px 10px;
-      border: 1px solid var(--border);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      white-space: normal;
-      line-height: 1.25;
-      word-break: break-word;
-    }
-
-    .score-pill.green { color: var(--green); border-color: rgba(120,180,136,0.35); }
-    .score-pill.yellow { color: var(--yellow); border-color: rgba(212,189,98,0.35); }
-    .score-pill.orange { color: var(--orange); border-color: rgba(190,131,83,0.35); }
-    .score-pill.red { color: var(--red); border-color: rgba(197,102,102,0.35); }
-
-    .score-number {
-      font-size: 132px;
-      line-height: .86;
-      letter-spacing: -.06em;
-      font-weight: 600;
-      margin-top: 18px;
-    }
-
-    .score-denom {
-      font-size: 28px;
-      color: var(--muted);
-      letter-spacing: 0;
-      margin-left: 6px;
-    }
-
-    .score-status {
-      margin-top: 10px;
-      font-size: 18px;
-      line-height: 1.05;
-      text-transform: uppercase;
-      letter-spacing: -.01em;
-      font-weight: 600;
-      max-width: 100%;
-    }
-
-    .score-brief {
-      margin-top: 16px;
-      font-size: 14px;
-      line-height: 1.45;
-      color: var(--muted);
-      max-width: 100%;
-    }
-
-    .score-breakdown {
-      margin-top: 20px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px 14px;
-      padding-top: 18px;
-      border-top: 1px solid var(--border);
-    }
-
-    .score-item-label {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      color: var(--soft);
-    }
-
-    .score-item-value {
-      font-size: 28px;
-      line-height: .95;
-      margin-top: 4px;
-    }
-
-    .record-main {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 30px;
-      padding-top: 30px;
-    }
-
-    .people-grid {
-      display: grid;
-      gap: 12px;
-    }
-
-    .person-card {
-      padding: 16px 18px;
-    }
-
-    .person-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      align-items: flex-start;
-      margin-bottom: 10px;
-    }
-
-    .person-name {
-      font-size: 26px;
-      line-height: .95;
-      letter-spacing: -.03em;
-      text-transform: uppercase;
-    }
-
-    .person-tag {
-      border: 1px solid var(--border);
-      padding: 8px 10px;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      white-space: nowrap;
-    }
-
-    .person-tag.green { color: var(--green); border-color: rgba(120,180,136,0.35); }
-    .person-tag.yellow { color: var(--yellow); border-color: rgba(212,189,98,0.35); }
-    .person-tag.orange { color: var(--orange); border-color: rgba(190,131,83,0.35); }
-    .person-tag.red { color: var(--red); border-color: rgba(197,102,102,0.35); }
-
-    .source-list {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 6px;
-      margin-top: 14px;
-    }
-
-    .source-row {
-      padding: 12px 0;
-      background: transparent;
-      border-left: 0;
-      border-right: 0;
-      border-bottom: 0;
-      display: grid;
-      grid-template-columns: 170px 1fr;
-      gap: 18px;
-      align-items: start;
-    }
-
-    .source-title {
-      font-size: 14px;
-      line-height: 1.35;
-      color: var(--text);
-    }
-
-    .error-box {
-      margin-top: 18px;
-      color: var(--red);
-      padding: 14px 16px;
-      font-size: 13px;
-      line-height: 1.45;
-      border-color: rgba(204,122,122,0.35);
-    }
-
-    @media (max-width: 980px) {
-      .section-grid,
-      .three-col,
-      .record-hero {
-        grid-template-columns: 1fr;
-      }
-
-      .score-card {
-        min-height: auto;
-      }
-
-      .source-row {
-        grid-template-columns: 1fr;
-        gap: 6px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .page { padding: 20px 18px 80px; }
-      .topnav { display: none; }
-      .search { grid-template-columns: 1fr; }
-      h1 { font-size: 60px; }
-      .score-number { font-size: 94px; }
-      .person-top { flex-direction: column; align-items: flex-start; }
-      .footer { grid-template-columns: 1fr; }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FilmCheck</title>
+
+<style>
+body {
+  margin:0;
+  font-family: Arial;
+  background:black;
+  color:white;
+}
+
+.container {
+  max-width:1000px;
+  margin:auto;
+  padding:40px;
+}
+
+input {
+  width:70%;
+  padding:15px;
+  font-size:18px;
+}
+
+button {
+  padding:15px;
+}
+
+.card {
+  margin-top:40px;
+  padding:20px;
+  border:1px solid #333;
+}
+
+.score {
+  font-size:60px;
+}
+
+.green { color:#78b488; }
+.yellow { color:#d4bd62; }
+.orange { color:#be8353; }
+.red { color:#c56666; }
+
+.person {
+  border-top:1px solid #333;
+  padding:10px 0;
+}
+
+.source {
+  font-size:12px;
+}
+</style>
 </head>
+
 <body>
-  <div class="page">
-    <header class="topbar">
-      <div class="brand" id="go-home">
-        <div class="brand-mark"></div>
-        <div>FilmCheck</div>
+
+<div class="container">
+
+<h1>FilmCheck</h1>
+
+<form id="form">
+<input id="input" placeholder="Tape un film..." />
+<button>Search</button>
+</form>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+const CACHE_KEY = "film_cache_v1";
+
+function slugify(str){
+  return str.toLowerCase().replace(/[^a-z0-9]/g,"");
+}
+
+function getCache(){
+  return JSON.parse(localStorage.getItem(CACHE_KEY)||"{}");
+}
+
+function saveCache(data){
+  const cache = getCache();
+  cache[slugify(data.title)] = data;
+  localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
+}
+
+function getFromCache(title){
+  const cache = getCache();
+  return cache[slugify(title)];
+}
+
+function color(score){
+  if(score<20) return "green";
+  if(score<45) return "yellow";
+  if(score<70) return "orange";
+  return "red";
+}
+
+function render(data){
+  const tone = color(data.vigilance_index);
+
+  document.getElementById("result").innerHTML = `
+    <div class="card">
+      <h2>${data.title}</h2>
+      <div class="score ${tone}">
+        ${data.vigilance_index}/100
       </div>
-      <nav class="topnav">
-        <a href="#/" class="nav-link active" id="nav-search">Search</a>
-        <a href="#/methodology" class="nav-link" id="nav-methodology">Methodology</a>
-        <a href="#/about" class="nav-link" id="nav-about">About</a>
-      </nav>
-    </header>
+      <p>${data.hero_note}</p>
 
-    <section id="view-home">
-      <div class="hero">
-        <div class="eyebrow">Transparency tool for film credits</div>
-        <h1>FilmCheck</h1>
-        <div class="hero-sub">Voir un film, c’est aussi choisir les personnes qui l’ont fait.</div>
-
-        <div class="search-wrap">
-          <form class="search" id="film-form">
-            <input id="film-input" type="text" placeholder="Rechercher un film…" />
-            <button id="search-button" type="submit">Search</button>
-          </form>
-          <div class="examples-inline">Exemples : Black Swan · Joker · Calmos</div>
-          <div class="error-box hidden" id="error-box"></div>
+      <h3>People</h3>
+      ${data.people.map(p=>`
+        <div class="person">
+          <b>${p.name}</b> – ${p.role}<br>
+          ${p.desc}
         </div>
-      </div>
+      `).join("")}
 
-      <section class="section">
-        <div class="section-grid">
-          <div><h2>Search → analyze → store</h2></div>
-          <div><p>When a film is searched for the first time, FilmCheck generates the record, then serves it instantly the next time on the same device.</p></div>
+      <h3>Sources</h3>
+      ${data.sources.map(s=>`
+        <div class="source">
+          <a href="${s.url}" target="_blank">${s.title}</a>
         </div>
-      </section>
+      `).join("")}
+    </div>
+  `;
+}
 
-      <section class="section">
-        <div class="section-grid">
-          <div><h2>Read in one glance</h2></div>
-          <div class="three-col">
-            <div class="card">
-              <div class="card-kicker">01</div>
-              <div class="card-title">Big color score</div>
-              <div class="card-text">The film should immediately read as green, yellow, orange or red.</div>
-            </div>
-            <div class="card">
-              <div class="card-kicker">02</div>
-              <div class="card-title">Key people first</div>
-              <div class="card-text">After the score, the next question is always: who is involved and why?</div>
-            </div>
-            <div class="card">
-              <div class="card-kicker">03</div>
-              <div class="card-title">Compact sources</div>
-              <div class="card-text">Sources should reassure, not dominate the page.</div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </section>
+async function search(title){
 
-    <section id="view-film" class="hidden"></section>
+  const cached = getFromCache(title);
+  if(cached){
+    render(cached);
+    return;
+  }
 
-    <section id="view-methodology" class="hidden">
-      <section class="section" style="padding-top:42px;border-top:0;">
-        <div class="eyebrow">Methodology</div>
-        <h1>How FilmCheck reads a record</h1>
-        <div class="hero-sub" style="max-width:760px;font-size:18px;line-height:1.4;color:var(--muted);letter-spacing:0;">This page keeps the method outside the film record itself.</div>
-      </section>
-      <section class="section">
-        <div class="section-grid">
-          <div><h2>Signal types</h2></div>
-          <div><p>FilmCheck separates convictions, proceedings, accusations and controversies. A film page should show those signals clearly without turning into a technical dashboard.</p></div>
-        </div>
-      </section>
-    </section>
+  const res = await fetch("/api/analyze",{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({title})
+  });
 
-    <section id="view-about" class="hidden">
-      <section class="section" style="padding-top:42px;border-top:0;">
-        <div class="eyebrow">About</div>
-        <h1>Transparency for film credits</h1>
-        <div class="hero-sub" style="max-width:760px;font-size:18px;line-height:1.4;color:var(--muted);letter-spacing:0;">FilmCheck is a reading tool, not a tribunal.</div>
-      </section>
-    </section>
+  const data = await res.json();
 
-    <footer class="footer">
-      <div class="footer-links">
-        <a href="#/methodology">Methodology</a>
-        <a href="#/about">About</a>
-      </div>
-      <div class="footer-note">
-        FilmCheck displays synthesized records produced from web-backed AI analysis. Every sensitive statement still needs editorial review before public production use.
-      </div>
-    </footer>
-  </div>
+  saveCache(data);
+  render(data);
+}
 
-  <script>
-    const home = document.getElementById("view-home");
-    const filmView = document.getElementById("view-film");
-    const methodologyView = document.getElementById("view-methodology");
-    const aboutView = document.getElementById("view-about");
-    const input = document.getElementById("film-input");
-    const form = document.getElementById("film-form");
-    const button = document.getElementById("search-button");
-    const errorBox = document.getElementById("error-box");
+document.getElementById("form").addEventListener("submit",(e)=>{
+  e.preventDefault();
+  const val = document.getElementById("input").value.trim();
+  if(!val) return;
+  search(val);
+});
+</script>
 
-    const CACHE_KEY = "filmcheck_records_v3";
-    const LAST_RECORD_KEY = "filmcheck_last_record_v3";
-
-    function escapeHtml(value) {
-      return String(value ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#39;");
-    }
-
-    function slugify(value) {
-      return String(value || "")
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/(^-|-$)/g, "");
-    }
-
-    function setActiveNav(which) {
-      document.getElementById("nav-search").classList.toggle("active", which === "search");
-      document.getElementById("nav-methodology").classList.toggle("active", which === "methodology");
-      document.getElementById("nav-about").classList.toggle("active", which === "about");
-    }
-
-    function showOnly(which) {
-      home.classList.toggle("hidden", which !== "home");
-      filmView.classList.toggle("hidden", which !== "film");
-      methodologyView.classList.toggle("hidden", which !== "methodology");
-      aboutView.classList.toggle("hidden", which !== "about");
-      setActiveNav(which === "film" ? "search" : which);
-    }
-
-    function loadCache() {
-      try {
-        return JSON.parse(localStorage.getItem(CACHE_KEY) || "{}");
-      } catch {
-        return {};
-      }
-    }
-
-    function saveToCache(record) {
-      if (!record || !record.title) return;
-      const cache = loadCache();
-      const key = slugify(record.title);
-      cache[key] = record;
-      localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
-      localStorage.setItem(LAST_RECORD_KEY, JSON.stringify(record));
-    }
-
-    function getFromCache(title) {
-      const cache = loadCache();
-      return cache[slugify(title)] || null;
-    }
-
-    function getLastRecord() {
-      try {
-        return JSON.parse(localStorage.getItem(LAST_RECORD_KEY) || "null");
-      } catch {
-        return null;
-      }
-    }
-
-    function tagClassFromStatus(status) {
-      const s = String(status || "").toLowerCase();
-      if (s.includes("none") || s.includes("clean") || s.includes("no signal") || s.includes("low")) return "green";
-      if (s.includes("limited") || s.includes("yellow")) return "yellow";
-      if (s.includes("moderate") || s.includes("proceeding") || s.includes("orange")) return "orange";
-      if (s.includes("high") || s.includes("conviction") || s.includes("red")) return "red";
-      return "yellow";
-    }
-
-    function scoreTone(score, explicit) {
-      if (explicit && ["green", "yellow", "orange", "red"].includes(explicit)) return explicit;
-      const n = Number(score || 0);
-      if (n < 20) return "green";
-      if (n < 45) return "yellow";
-      if (n < 70) return "orange";
-      return "red";
-    }
-
-    function statusLabel(score) {
-      const tone = scoreTone(score);
-      if (tone === "green") return "Low vigilance";
-      if (tone === "yellow") return "Limited caution";
-      if (tone === "orange") return "Moderate caution";
-      return "High caution";
-    }
-
-    function renderFilm(record) {
-      if (!record || !record.title) return;
-
-      const score = Number(record.vigilance_index ?? 0);
-      const tone = scoreTone(score, record.status_class);
-      const people = Array.isArray(record.people) ? record.people : [];
-      const sources = Array.isArray(record.sources) ? record.sources : [];
-      const breakdown = record.breakdown || { convictions: 0, proceedings: 0, accusations: 0, controversies: 0 };
-
-      filmView.innerHTML = `
-        <div class="record-wrap">
-          <div class="crumbs"><span>Home</span><span>/</span><span>Films</span><span>/</span><span>${escapeHtml(record.title)}</span></div>
-
-          <section class="record-hero">
-            <div>
-              <div class="eyebrow">Film record</div>
-              <h1>${escapeHtml(record.title)}</h1>
-              <div class="record-subline">${escapeHtml(record.subtitle || "")}</div>
-            </div>
-
-            <aside class="score-card ${tone}">
-              <div>
-                <div class="score-top">
-                  <div class="score-label">FilmCheck score</div>
-                  <div class="score-pill ${tone}">${escapeHtml(statusLabel(score))}</div>
-                </div>
-
-                <div class="score-number">${escapeHtml(score)}<span class="score-denom">/100</span></div>
-                <div class="score-status">${escapeHtml(statusLabel(score))}</div>
-                <div class="score-brief">${escapeHtml(record.hero_note || record.summary || "")}</div>
-              </div>
-
-              <div class="score-breakdown">
-                <div>
-                  <div class="score-item-label">Convictions</div>
-                  <div class="score-item-value">${escapeHtml(breakdown.convictions ?? 0)}</div>
-                </div>
-                <div>
-                  <div class="score-item-label">Proceedings</div>
-                  <div class="score-item-value">${escapeHtml(breakdown.proceedings ?? 0)}</div>
-                </div>
-                <div>
-                  <div class="score-item-label">Accusations</div>
-                  <div class="score-item-value">${escapeHtml(breakdown.accusations ?? 0)}</div>
-                </div>
-                <div>
-                  <div class="score-item-label">Controversies</div>
-                  <div class="score-item-value">${escapeHtml(breakdown.controversies ?? 0)}</div>
-                </div>
-              </div>
-            </aside>
-          </section>
-
-          <main class="record-main">
-            <section class="record-section" id="people">
-              <h2>Key people</h2>
-              <div class="people-grid">
-                ${people.length ? people.map(person => `
-                  <article class="person-card">
-                    <div class="person-top">
-                      <div>
-                        <div class="person-name">${escapeHtml(person.name)}</div>
-                        <div class="person-role">${escapeHtml(person.role || "")}</div>
-                      </div>
-                      <div class="person-tag ${escapeHtml(person.tag_class || tagClassFromStatus(person.tag || ""))}">
-                        ${escapeHtml(person.tag || "Signal")}
-                      </div>
-                    </div>
-                    <div class="person-desc">${escapeHtml(person.desc || "")}</div>
-                  </article>
-                `).join("") : `<div class="card-text">No specific person was returned for this record.</div>`}
-              </div>
-            </section>
-
-            <section class="record-section" id="sources">
-              <h2>Sources</h2>
-              <div class="source-list">
-                ${sources.length ? sources.map(source => `
-                  <a class="source-row" href="${escapeHtml(source.url || "#")}" target="_blank" rel="noopener noreferrer">
-                    <div class="source-domain">${escapeHtml(source.domain || "Source")}</div>
-                    <div class="source-title">${escapeHtml(source.title || source.url || "")}</div>
-                  </a>
-                `).join("") : `<div class="card-text">No source was returned.</div>`}
-              </div>
-            </section>
-          </main>
-        </div>
-      `;
-
-      showOnly("film");
-    }
-
-    async function analyzeFilm(title) {
-      errorBox.classList.add("hidden");
-      errorBox.textContent = "";
-
-      const cleanTitle = title.trim();
-      if (!cleanTitle) return;
-
-      const cached = getFromCache(cleanTitle);
-      if (cached) {
-        saveToCache(cached);
-        window.location.hash = "#/film";
-        renderFilm(cached);
-        return;
-      }
-
-      button.disabled = true;
-      button.textContent = "Loading";
-
-      try {
-        const response = await fetch("/api/analyze", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ title: cleanTitle })
-        });
-
-        const text = await response.text();
-
-        let payload;
-        try {
-          payload = JSON.parse(text);
-        } catch {
-          throw new Error("Invalid JSON returned by API");
-        }
-
-        if (!response.ok) {
-          throw new Error(payload.error || "Server error");
-        }
-
-        if (!payload || !payload.title) {
-          throw new Error("Empty or invalid film data");
-        }
-
-        saveToCache(payload);
-        window.location.hash = "#/film";
-        renderFilm(payload);
-      } catch (err) {
-        errorBox.textContent = err.message || "Unable to analyze this film.";
-        errorBox.classList.remove("hidden");
-      } finally {
-        button.disabled = false;
-        button.textContent = "Search";
-      }
-    }
-
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      const title = input.value.trim();
-      if (!title) return;
-      analyzeFilm(title);
-    });
-
-    document.getElementById("go-home").addEventListener("click", function () {
-      window.location.hash = "#/";
-      showOnly("home");
-    });
-
-    function route() {
-      const hash = window.location.hash || "#/";
-      if (hash === "#/methodology") {
-        showOnly("methodology");
-      } else if (hash === "#/about") {
-        showOnly("about");
-      } else if (hash === "#/film") {
-        const last = getLastRecord();
-        if (last) {
-          renderFilm(last);
-        } else {
-          showOnly("home");
-        }
-      } else {
-        showOnly("home");
-      }
-    }
-
-    window.addEventListener("hashchange", route);
-    route();
-  </script>
 </body>
 </html>
