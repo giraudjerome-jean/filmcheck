@@ -1,12 +1,16 @@
 export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  const title = (req.body?.title || "").trim();
+
+  if (!title) {
+    return res.status(400).json({ error: "Missing film title" });
+  }
+
   try {
-    const title = (req.body?.title || "").trim();
-
-    if (!title) {
-      return res.status(400).json({ error: "Missing film title" });
-    }
-
-    const url = `${process.env.SUPABASE_URL}/rest/v1/films?select=*&limit=1`;
+    const url = `${process.env.SUPABASE_URL}/rest/v1/films?slug=eq.${encodeURIComponent(title.toLowerCase())}&select=payload&limit=1`;
 
     const response = await fetch(url, {
       method: "GET",
@@ -16,46 +20,18 @@ export default async function handler(req, res) {
       },
     });
 
-    const text = await response.text();
+    const rows = await response.json();
+    const payload = rows?.[0]?.payload;
 
-    return res.status(200).json({
-      title,
-      subtitle: "Supabase test",
-      status: "Limited caution",
-      status_class: "yellow",
-      vigilance_index: 42,
-      people_count: 1,
-      confidence: "Low",
-      generated_at: "2026-04-13",
-      hero_note: `HTTP ${response.status} — ${text}`,
-      summary: "Supabase request completed.",
-      summary_items: ["Fetch completed", "Response received", "Debug mode"],
-      breakdown: {
-        convictions: 0,
-        proceedings: 0,
-        accusations: 0,
-        controversies: 0
-      },
-      people: [
-        {
-          name: "Supabase debug",
-          role: "System",
-          tag: "Signal",
-          tag_class: "yellow",
-          desc: url
-        }
-      ],
-      sources: []
-    });
+    if (!payload) {
+      return res.status(404).json({ error: "Film not found in database" });
+    }
 
+    return res.status(200).json(payload);
   } catch (err) {
-    console.error("ERROR ANALYZE:", err);
-
     return res.status(500).json({
-      error: err.message,
-      stack: err.stack,
-      supabaseUrl: process.env.SUPABASE_URL || "missing",
-      keyPrefix: (process.env.SUPABASE_SERVICE_ROLE_KEY || "").slice(0, 12)
+      error: "Server error",
+      details: err?.message || "Unknown error"
     });
   }
 }
