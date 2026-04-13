@@ -32,9 +32,14 @@
     .page { max-width: var(--max); margin: 0 auto; padding: 26px var(--gutter) 110px; }
 
     .topbar {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 4px 0 24px; border-bottom: 1px solid var(--border);
-      text-transform: uppercase; letter-spacing: .08em; font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 0 24px;
+      border-bottom: 1px solid var(--border);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-size: 12px;
     }
 
     .brand { display: flex; align-items: center; gap: 14px; cursor: pointer; }
@@ -47,116 +52,170 @@
     .nav-link.active, .nav-link:hover { color: var(--text); }
 
     .hero {
-      min-height: 76vh; display: flex; flex-direction: column; justify-content: center;
+      min-height: 76vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       padding: 60px 0 40px;
     }
 
     .eyebrow {
-      color: var(--soft); text-transform: uppercase; letter-spacing: .1em;
-      font-size: 12px; margin-bottom: 20px;
+      color: var(--soft);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      font-size: 12px;
+      margin-bottom: 20px;
     }
 
     h1 {
-      margin: 0; max-width: 1080px; font-weight: 600;
-      font-size: clamp(68px, 11vw, 140px); line-height: .9;
-      letter-spacing: -.045em; text-transform: uppercase;
+      margin: 0;
+      max-width: 1080px;
+      font-weight: 600;
+      font-size: clamp(68px, 11vw, 140px);
+      line-height: .9;
+      letter-spacing: -.045em;
+      text-transform: uppercase;
     }
 
     h2 {
-      margin: 0 0 16px; font-size: 34px; line-height: .95;
-      letter-spacing: -.035em; text-transform: uppercase; font-weight: 600;
+      margin: 0 0 16px;
+      font-size: 34px;
+      line-height: .95;
+      letter-spacing: -.035em;
+      text-transform: uppercase;
+      font-weight: 600;
     }
 
     .hero-sub {
-      margin-top: 26px; max-width: 760px; font-size: clamp(22px, 2.7vw, 34px);
-      line-height: 1.08; letter-spacing: -.025em;
+      margin-top: 26px;
+      max-width: 760px;
+      font-size: clamp(22px, 2.7vw, 34px);
+      line-height: 1.08;
+      letter-spacing: -.025em;
     }
 
     .search-wrap {
-      margin-top: 42px; max-width: 980px; border-top: 1px solid var(--border); padding-top: 18px;
+      margin-top: 42px;
+      max-width: 980px;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
     }
 
-    .search { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: stretch; }
+    .search {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: stretch;
+    }
 
     .search input {
-      width: 100%; height: 72px; border: 1px solid var(--border); background: var(--panel);
-      color: var(--text); padding: 0 22px; font-size: 18px; outline: none; border-radius: var(--radius);
+      width: 100%;
+      height: 72px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      padding: 0 22px;
+      font-size: 18px;
+      outline: none;
+      border-radius: var(--radius);
     }
 
     .search input::placeholder { color: rgba(244,244,241,0.38); }
 
     .search button {
-      height: 72px; min-width: 160px; border: 1px solid var(--border-strong);
-      background: var(--text); color: #000; text-transform: uppercase;
-      letter-spacing: .08em; font-size: 12px; cursor: pointer; border-radius: var(--radius);
+      height: 72px;
+      min-width: 160px;
+      border: 1px solid var(--border-strong);
+      background: var(--text);
+      color: #000;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-size: 12px;
+      cursor: pointer;
+      border-radius: var(--radius);
     }
 
     .search button:disabled { opacity: .55; cursor: default; }
 
     .examples-inline {
-      margin-top: 16px; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--soft);
+      margin-top: 16px;
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--soft);
     }
 
-    .section { padding: 34px 0; border-top: 1px solid var(--border); }
-    .section-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 34px; }
-
-    .section p {
-      margin: 0; color: var(--muted); font-size: 17px; line-height: 1.55; max-width: 760px;
-    }
-
-    .three-col { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
-
-    .card, .person-card, .source-row, .score-card, .error-box { border: 1px solid var(--border); background: var(--panel); }
-
-    .card {
-      padding: 18px 20px;
-      background: linear-gradient(to bottom, rgba(255,255,255,0.025), rgba(255,255,255,0)), var(--panel);
-    }
-
-    .card-kicker, .person-role, .source-domain {
-      color: var(--soft); text-transform: uppercase; letter-spacing: .08em; font-size: 11px;
-    }
-
-    .card-title {
-      font-size: 30px; line-height: .94; letter-spacing: -.035em; text-transform: uppercase; margin-bottom: 18px;
-    }
-
-    .card-text, .person-desc { font-size: 15px; line-height: 1.54; color: var(--muted); }
     .hidden { display: none; }
 
     .footer {
-      margin-top: 70px; padding-top: 18px; border-top: 1px solid var(--border);
-      display: grid; grid-template-columns: 1fr 1.2fr; gap: 24px; align-items: start;
+      margin-top: 70px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 24px;
+      align-items: start;
     }
 
     .footer-links {
-      display: flex; flex-wrap: wrap; gap: 18px; font-size: 11px; text-transform: uppercase;
-      letter-spacing: .08em; color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
     }
 
-    .footer-note { font-size: 12px; line-height: 1.5; color: var(--soft); max-width: 720px; }
+    .footer-note {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--soft);
+      max-width: 720px;
+    }
 
     .record-wrap { padding-top: 24px; }
 
     .crumbs {
-      margin-top: 20px; color: var(--soft); text-transform: uppercase; letter-spacing: .09em;
-      font-size: 11px; display: flex; gap: 10px; align-items: center;
+      margin-top: 20px;
+      color: var(--soft);
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      font-size: 11px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
     }
 
     .record-hero {
-      display: grid; grid-template-columns: minmax(0, 1.25fr) 360px;
-      gap: 28px; padding: 30px 0 30px; border-bottom: 1px solid var(--border); align-items: start;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 34px;
+      padding: 30px 0 30px;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+      max-width: 1060px;
     }
 
     .record-hero > * { min-width: 0; }
 
     .record-subline {
-      margin-top: 16px; font-size: 18px; color: var(--muted); line-height: 1.4; max-width: 760px;
+      margin-top: 16px;
+      font-size: 18px;
+      color: var(--muted);
+      line-height: 1.4;
+      max-width: 760px;
     }
 
     .score-card {
-      padding: 22px; display: flex; flex-direction: column; justify-content: space-between;
-      min-height: 320px; overflow: hidden;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 320px;
+      overflow: hidden;
+      width: 300px;
+      justify-self: start;
     }
 
     .score-card.green {
@@ -179,13 +238,24 @@
     .score-top { display: block; }
 
     .score-label {
-      font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--soft);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--soft);
     }
 
     .score-pill {
-      display: inline-block; margin-top: 12px; max-width: 100%; padding: 8px 10px;
-      border: 1px solid var(--border); font-size: 11px; text-transform: uppercase;
-      letter-spacing: .08em; white-space: normal; line-height: 1.25; word-break: break-word;
+      display: inline-block;
+      margin-top: 12px;
+      max-width: 100%;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      white-space: normal;
+      line-height: 1.25;
+      word-break: break-word;
     }
 
     .score-pill.green { color: var(--green); border-color: rgba(120,180,136,0.35); }
@@ -194,46 +264,92 @@
     .score-pill.red { color: var(--red); border-color: rgba(197,102,102,0.35); }
 
     .score-number {
-      font-size: 132px; line-height: .86; letter-spacing: -.06em; font-weight: 600; margin-top: 18px;
+      font-size: 120px;
+      line-height: .86;
+      letter-spacing: -.06em;
+      font-weight: 600;
+      margin-top: 18px;
     }
 
-    .score-denom { font-size: 28px; color: var(--muted); letter-spacing: 0; margin-left: 6px; }
+    .score-denom { font-size: 26px; color: var(--muted); letter-spacing: 0; margin-left: 6px; }
 
     .score-status {
-      margin-top: 10px; font-size: 18px; line-height: 1.05; text-transform: uppercase;
-      letter-spacing: -.01em; font-weight: 600; max-width: 100%;
+      margin-top: 10px;
+      font-size: 18px;
+      line-height: 1.05;
+      text-transform: uppercase;
+      letter-spacing: -.01em;
+      font-weight: 600;
+      max-width: 100%;
     }
 
     .score-brief {
-      margin-top: 16px; font-size: 14px; line-height: 1.45; color: var(--muted); max-width: 100%;
+      margin-top: 16px;
+      font-size: 14px;
+      line-height: 1.45;
+      color: var(--muted);
+      max-width: 100%;
     }
 
     .score-breakdown {
-      margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr;
-      gap: 10px 14px; padding-top: 18px; border-top: 1px solid var(--border);
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 14px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
     }
 
     .score-item-label {
-      font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: var(--soft);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--soft);
     }
 
     .score-item-value { font-size: 28px; line-height: .95; margin-top: 4px; }
 
     .record-main { display: grid; grid-template-columns: 1fr; gap: 30px; padding-top: 30px; }
     .people-grid { display: grid; gap: 12px; }
-    .person-card { padding: 16px 18px; }
+    .person-card { padding: 16px 18px; border: 1px solid var(--border); background: var(--panel); }
 
     .person-top {
-      display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 10px;
     }
 
     .person-name {
-      font-size: 26px; line-height: .95; letter-spacing: -.03em; text-transform: uppercase;
+      font-size: 26px;
+      line-height: .95;
+      letter-spacing: -.03em;
+      text-transform: uppercase;
+    }
+
+    .person-role,
+    .source-domain {
+      color: var(--soft);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-size: 11px;
+    }
+
+    .person-desc,
+    .card-text {
+      font-size: 15px;
+      line-height: 1.54;
+      color: var(--muted);
     }
 
     .person-tag {
-      border: 1px solid var(--border); padding: 8px 10px; font-size: 11px;
-      text-transform: uppercase; letter-spacing: .08em; white-space: nowrap;
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      white-space: nowrap;
     }
 
     .person-tag.green { color: var(--green); border-color: rgba(120,180,136,0.35); }
@@ -244,20 +360,30 @@
     .source-list { display: grid; grid-template-columns: 1fr; gap: 6px; margin-top: 14px; }
 
     .source-row {
-      padding: 12px 0; background: transparent; border-left: 0; border-right: 0; border-bottom: 0;
-      display: grid; grid-template-columns: 170px 1fr; gap: 18px; align-items: start;
+      padding: 12px 0;
+      background: transparent;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 18px;
+      align-items: start;
     }
 
     .source-title { font-size: 14px; line-height: 1.35; color: var(--text); }
 
     .error-box {
-      margin-top: 18px; color: var(--red); padding: 14px 16px; font-size: 13px;
-      line-height: 1.45; border-color: rgba(204,122,122,0.35);
+      margin-top: 18px;
+      color: var(--red);
+      padding: 14px 16px;
+      font-size: 13px;
+      line-height: 1.45;
+      border: 1px solid rgba(204,122,122,0.35);
+      background: var(--panel);
     }
 
     @media (max-width: 980px) {
-      .section-grid, .three-col, .record-hero { grid-template-columns: 1fr; }
-      .score-card { min-height: auto; }
+      .record-hero { grid-template-columns: 1fr; max-width: none; }
+      .score-card { min-height: auto; width: 100%; max-width: 360px; }
       .source-row { grid-template-columns: 1fr; gap: 6px; }
     }
 
@@ -290,7 +416,7 @@
       <div class="hero">
         <div class="eyebrow">Transparency tool for film credits</div>
         <h1>FilmCheck</h1>
-        <div class="hero-sub">Voir un film, c’est aussi choisir les personnes qui l’ont fait.</div>
+        <div class="hero-sub">Choosing a film is also choosing the people behind it.</div>
 
         <div class="search-wrap">
           <form class="search" id="film-form">
@@ -301,36 +427,6 @@
           <div class="error-box hidden" id="error-box"></div>
         </div>
       </div>
-
-      <section class="section">
-        <div class="section-grid">
-          <div><h2>Search → analyze → store</h2></div>
-          <div><p>When a film is searched for the first time, FilmCheck generates the record, stores it in the database, then serves it instantly next time.</p></div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-grid">
-          <div><h2>Read in one glance</h2></div>
-          <div class="three-col">
-            <div class="card">
-              <div class="card-kicker">01</div>
-              <div class="card-title">Big color score</div>
-              <div class="card-text">The film should immediately read as green, yellow, orange or red.</div>
-            </div>
-            <div class="card">
-              <div class="card-kicker">02</div>
-              <div class="card-title">Key people first</div>
-              <div class="card-text">After the score, the next question is always: who is involved and why?</div>
-            </div>
-            <div class="card">
-              <div class="card-kicker">03</div>
-              <div class="card-title">Compact sources</div>
-              <div class="card-text">Sources should reassure, not dominate the page.</div>
-            </div>
-          </div>
-        </div>
-      </section>
     </section>
 
     <section id="view-film" class="hidden"></section>
@@ -544,11 +640,11 @@
       button.textContent = "Loading";
 
       try {
-  const response = await fetch("/api/analyze", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ title: cleanTitle })
-  });
+        const response = await fetch("/api/analyze", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ title: cleanTitle })
+        });
 
         const text = await response.text();
 
@@ -561,10 +657,10 @@
 
         if (!response.ok) {
           throw new Error(
-  [payload.error, payload.details, payload.supabaseUrl, payload.keyPrefix]
-    .filter(Boolean)
-    .join(" — ") || "Server error"
-);
+            [payload.error, payload.details, payload.supabaseUrl, payload.keyPrefix]
+              .filter(Boolean)
+              .join(" — ") || "Server error"
+          );
         }
 
         if (!payload || !payload.title) {
