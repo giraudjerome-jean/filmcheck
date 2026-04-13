@@ -1,15 +1,11 @@
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
-
-  const title = (req.body?.title || "").trim();
-
-  if (!title) {
-    return res.status(400).json({ error: "Missing film title" });
-  }
-
   try {
+    const title = (req.body?.title || "").trim();
+
+    if (!title) {
+      return res.status(400).json({ error: "Missing film title" });
+    }
+
     const url = `${process.env.SUPABASE_URL}/rest/v1/films?select=*&limit=1`;
 
     const response = await fetch(url, {
@@ -51,10 +47,13 @@ export default async function handler(req, res) {
       ],
       sources: []
     });
-  } catch (e) {
+
+  } catch (err) {
+    console.error("ERROR ANALYZE:", err);
+
     return res.status(500).json({
-      error: "Fetch crashed",
-      details: e?.message || "Unknown error",
+      error: err.message,
+      stack: err.stack,
       supabaseUrl: process.env.SUPABASE_URL || "missing",
       keyPrefix: (process.env.SUPABASE_SERVICE_ROLE_KEY || "").slice(0, 12)
     });
