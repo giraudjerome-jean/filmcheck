@@ -9,29 +9,17 @@
     @font-face { font-family: "Radial"; src: url("Radial Semi Bold.otf") format("opentype"); font-weight: 600; font-style: normal; font-display: swap; }
 
     :root {
-      --bg: #000;
-      --panel: #0d0d0d;
-      --border: rgba(255,255,255,0.11);
-      --border-strong: rgba(255,255,255,0.22);
-      --text: #f4f4f1;
-      --muted: rgba(244,244,241,0.66);
-      --soft: rgba(244,244,241,0.42);
-      --green: #78b488;
-      --yellow: #d4bd62;
-      --orange: #be8353;
-      --red: #c56666;
-      --max: 1280px;
-      --gutter: 34px;
-      --radius: 3px;
+      --bg:#000; --panel:#0d0d0d; --border:rgba(255,255,255,0.11); --border-strong:rgba(255,255,255,0.22);
+      --text:#f4f4f1; --muted:rgba(244,244,241,0.66); --soft:rgba(244,244,241,0.42);
+      --green:#78b488; --yellow:#d4bd62; --orange:#be8353; --red:#c56666;
+      --max:1280px; --gutter:34px; --radius:3px;
     }
 
     * { box-sizing: border-box; }
     html { background: var(--bg); scroll-behavior: smooth; }
     body {
       margin: 0;
-      background:
-        linear-gradient(to bottom, rgba(255,255,255,0.04), rgba(255,255,255,0) 220px),
-        var(--bg);
+      background: linear-gradient(to bottom, rgba(255,255,255,0.04), rgba(255,255,255,0) 220px), var(--bg);
       color: var(--text);
       font-family: "Radial", Arial, Helvetica, sans-serif;
       -webkit-font-smoothing: antialiased;
@@ -44,28 +32,14 @@
     .page { max-width: var(--max); margin: 0 auto; padding: 26px var(--gutter) 110px; }
 
     .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 4px 0 24px;
-      border-bottom: 1px solid var(--border);
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      font-size: 12px;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 4px 0 24px; border-bottom: 1px solid var(--border);
+      text-transform: uppercase; letter-spacing: .08em; font-size: 12px;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      cursor: pointer;
-    }
-
+    .brand { display: flex; align-items: center; gap: 14px; cursor: pointer; }
     .brand-mark {
-      width: 10px;
-      height: 10px;
-      background: var(--text);
-      border-radius: 50%;
+      width: 10px; height: 10px; background: var(--text); border-radius: 50%;
       box-shadow: 0 0 0 4px rgba(255,255,255,0.07);
     }
 
@@ -73,242 +47,116 @@
     .nav-link.active, .nav-link:hover { color: var(--text); }
 
     .hero {
-      min-height: 76vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      min-height: 76vh; display: flex; flex-direction: column; justify-content: center;
       padding: 60px 0 40px;
     }
 
     .eyebrow {
-      color: var(--soft);
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      font-size: 12px;
-      margin-bottom: 20px;
+      color: var(--soft); text-transform: uppercase; letter-spacing: .1em;
+      font-size: 12px; margin-bottom: 20px;
     }
 
     h1 {
-      margin: 0;
-      max-width: 1080px;
-      font-weight: 600;
-      font-size: clamp(68px, 11vw, 140px);
-      line-height: .9;
-      letter-spacing: -.045em;
-      text-transform: uppercase;
+      margin: 0; max-width: 1080px; font-weight: 600;
+      font-size: clamp(68px, 11vw, 140px); line-height: .9;
+      letter-spacing: -.045em; text-transform: uppercase;
     }
 
     h2 {
-      margin: 0 0 16px;
-      font-size: 34px;
-      line-height: .95;
-      letter-spacing: -.035em;
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-
-    h3 {
-      margin: 0 0 14px;
-      font-size: 15px;
-      line-height: 1;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      font-weight: 600;
+      margin: 0 0 16px; font-size: 34px; line-height: .95;
+      letter-spacing: -.035em; text-transform: uppercase; font-weight: 600;
     }
 
     .hero-sub {
-      margin-top: 26px;
-      max-width: 760px;
-      font-size: clamp(22px, 2.7vw, 34px);
-      line-height: 1.08;
-      letter-spacing: -.025em;
+      margin-top: 26px; max-width: 760px; font-size: clamp(22px, 2.7vw, 34px);
+      line-height: 1.08; letter-spacing: -.025em;
     }
 
     .search-wrap {
-      margin-top: 42px;
-      max-width: 980px;
-      border-top: 1px solid var(--border);
-      padding-top: 18px;
+      margin-top: 42px; max-width: 980px; border-top: 1px solid var(--border); padding-top: 18px;
     }
 
-    .search {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-      align-items: stretch;
-    }
+    .search { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: stretch; }
 
     .search input {
-      width: 100%;
-      height: 72px;
-      border: 1px solid var(--border);
-      background: var(--panel);
-      color: var(--text);
-      padding: 0 22px;
-      font-size: 18px;
-      outline: none;
-      border-radius: var(--radius);
+      width: 100%; height: 72px; border: 1px solid var(--border); background: var(--panel);
+      color: var(--text); padding: 0 22px; font-size: 18px; outline: none; border-radius: var(--radius);
     }
 
     .search input::placeholder { color: rgba(244,244,241,0.38); }
 
     .search button {
-      height: 72px;
-      min-width: 160px;
-      border: 1px solid var(--border-strong);
-      background: var(--text);
-      color: #000;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      font-size: 12px;
-      cursor: pointer;
-      border-radius: var(--radius);
+      height: 72px; min-width: 160px; border: 1px solid var(--border-strong);
+      background: var(--text); color: #000; text-transform: uppercase;
+      letter-spacing: .08em; font-size: 12px; cursor: pointer; border-radius: var(--radius);
     }
 
-    .search button:disabled {
-      opacity: .55;
-      cursor: default;
-    }
+    .search button:disabled { opacity: .55; cursor: default; }
 
-    .nav-sub,
     .examples-inline {
-      margin-top: 12px;
-      font-size: 12px;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: var(--soft);
+      margin-top: 16px; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--soft);
     }
 
-    .examples-inline { margin-top: 16px; }
-
-    .section {
-      padding: 34px 0;
-      border-top: 1px solid var(--border);
-    }
-
-    .section-grid {
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 34px;
-    }
+    .section { padding: 34px 0; border-top: 1px solid var(--border); }
+    .section-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 34px; }
 
     .section p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.55;
-      max-width: 760px;
+      margin: 0; color: var(--muted); font-size: 17px; line-height: 1.55; max-width: 760px;
     }
 
-    .three-col {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 16px;
-    }
+    .three-col { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
 
-    .card,
-    .person-card,
-    .source-row,
-    .score-card,
-    .error-box {
-      border: 1px solid var(--border);
-      background: var(--panel);
-    }
+    .card, .person-card, .source-row, .score-card, .error-box { border: 1px solid var(--border); background: var(--panel); }
 
     .card {
       padding: 18px 20px;
       background: linear-gradient(to bottom, rgba(255,255,255,0.025), rgba(255,255,255,0)), var(--panel);
     }
 
-    .card-kicker,
-    .person-role,
-    .source-domain {
-      color: var(--soft);
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      font-size: 11px;
+    .card-kicker, .person-role, .source-domain {
+      color: var(--soft); text-transform: uppercase; letter-spacing: .08em; font-size: 11px;
     }
 
     .card-title {
-      font-size: 30px;
-      line-height: .94;
-      letter-spacing: -.035em;
-      text-transform: uppercase;
-      margin-bottom: 18px;
+      font-size: 30px; line-height: .94; letter-spacing: -.035em; text-transform: uppercase; margin-bottom: 18px;
     }
 
-    .card-text,
-    .person-desc,
-    .disclaimer {
-      font-size: 15px;
-      line-height: 1.54;
-      color: var(--muted);
-    }
-
+    .card-text, .person-desc { font-size: 15px; line-height: 1.54; color: var(--muted); }
     .hidden { display: none; }
 
     .footer {
-      margin-top: 70px;
-      padding-top: 18px;
-      border-top: 1px solid var(--border);
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 24px;
-      align-items: start;
+      margin-top: 70px; padding-top: 18px; border-top: 1px solid var(--border);
+      display: grid; grid-template-columns: 1fr 1.2fr; gap: 24px; align-items: start;
     }
 
     .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      color: var(--muted);
+      display: flex; flex-wrap: wrap; gap: 18px; font-size: 11px; text-transform: uppercase;
+      letter-spacing: .08em; color: var(--muted);
     }
 
-    .footer-note {
-      font-size: 12px;
-      line-height: 1.5;
-      color: var(--soft);
-      max-width: 720px;
-    }
+    .footer-note { font-size: 12px; line-height: 1.5; color: var(--soft); max-width: 720px; }
 
     .record-wrap { padding-top: 24px; }
 
     .crumbs {
-      margin-top: 20px;
-      color: var(--soft);
-      text-transform: uppercase;
-      letter-spacing: .09em;
-      font-size: 11px;
-      display: flex;
-      gap: 10px;
-      align-items: center;
+      margin-top: 20px; color: var(--soft); text-transform: uppercase; letter-spacing: .09em;
+      font-size: 11px; display: flex; gap: 10px; align-items: center;
     }
 
     .record-hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.25fr) 320px;
-      gap: 28px;
-      padding: 30px 0 30px;
-      border-bottom: 1px solid var(--border);
+      display: grid; grid-template-columns: minmax(0, 1.25fr) 360px;
+      gap: 28px; padding: 30px 0 30px; border-bottom: 1px solid var(--border); align-items: start;
     }
 
+    .record-hero > * { min-width: 0; }
+
     .record-subline {
-      margin-top: 16px;
-      font-size: 18px;
-      color: var(--muted);
-      line-height: 1.4;
-      max-width: 760px;
+      margin-top: 16px; font-size: 18px; color: var(--muted); line-height: 1.4; max-width: 760px;
     }
 
     .score-card {
-      padding: 22px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 290px;
+      padding: 22px; display: flex; flex-direction: column; justify-content: space-between;
+      min-height: 320px; overflow: hidden;
     }
 
     .score-card.green {
@@ -328,27 +176,16 @@
       border-color: rgba(197,102,102,0.35);
     }
 
-    .score-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 16px;
-    }
+    .score-top { display: block; }
 
     .score-label {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      color: var(--soft);
+      font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--soft);
     }
 
     .score-pill {
-      padding: 8px 10px;
-      border: 1px solid var(--border);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      white-space: nowrap;
+      display: inline-block; margin-top: 12px; max-width: 100%; padding: 8px 10px;
+      border: 1px solid var(--border); font-size: 11px; text-transform: uppercase;
+      letter-spacing: .08em; white-space: normal; line-height: 1.25; word-break: break-word;
     }
 
     .score-pill.green { color: var(--green); border-color: rgba(120,180,136,0.35); }
@@ -357,96 +194,46 @@
     .score-pill.red { color: var(--red); border-color: rgba(197,102,102,0.35); }
 
     .score-number {
-      font-size: 132px;
-      line-height: .86;
-      letter-spacing: -.06em;
-      font-weight: 600;
-      margin-top: 18px;
+      font-size: 132px; line-height: .86; letter-spacing: -.06em; font-weight: 600; margin-top: 18px;
     }
 
-    .score-denom {
-      font-size: 28px;
-      color: var(--muted);
-      letter-spacing: 0;
-      margin-left: 6px;
-    }
+    .score-denom { font-size: 28px; color: var(--muted); letter-spacing: 0; margin-left: 6px; }
 
     .score-status {
-      margin-top: 4px;
-      font-size: 22px;
-      line-height: 1;
-      text-transform: uppercase;
-      letter-spacing: -.02em;
-      font-weight: 600;
+      margin-top: 10px; font-size: 18px; line-height: 1.05; text-transform: uppercase;
+      letter-spacing: -.01em; font-weight: 600; max-width: 100%;
     }
 
     .score-brief {
-      margin-top: 18px;
-      font-size: 15px;
-      line-height: 1.5;
-      color: var(--muted);
+      margin-top: 16px; font-size: 14px; line-height: 1.45; color: var(--muted); max-width: 100%;
     }
 
     .score-breakdown {
-      margin-top: 20px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px 14px;
-      padding-top: 18px;
-      border-top: 1px solid var(--border);
+      margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr;
+      gap: 10px 14px; padding-top: 18px; border-top: 1px solid var(--border);
     }
 
     .score-item-label {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      color: var(--soft);
+      font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: var(--soft);
     }
 
-    .score-item-value {
-      font-size: 28px;
-      line-height: .95;
-      margin-top: 4px;
-    }
+    .score-item-value { font-size: 28px; line-height: .95; margin-top: 4px; }
 
-    .record-main {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 30px;
-      padding-top: 30px;
-    }
-
-    .people-grid {
-      display: grid;
-      gap: 12px;
-    }
-
-    .person-card {
-      padding: 16px 18px;
-    }
+    .record-main { display: grid; grid-template-columns: 1fr; gap: 30px; padding-top: 30px; }
+    .people-grid { display: grid; gap: 12px; }
+    .person-card { padding: 16px 18px; }
 
     .person-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      align-items: flex-start;
-      margin-bottom: 10px;
+      display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; margin-bottom: 10px;
     }
 
     .person-name {
-      font-size: 26px;
-      line-height: .95;
-      letter-spacing: -.03em;
-      text-transform: uppercase;
+      font-size: 26px; line-height: .95; letter-spacing: -.03em; text-transform: uppercase;
     }
 
     .person-tag {
-      border: 1px solid var(--border);
-      padding: 8px 10px;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      white-space: nowrap;
+      border: 1px solid var(--border); padding: 8px 10px; font-size: 11px;
+      text-transform: uppercase; letter-spacing: .08em; white-space: nowrap;
     }
 
     .person-tag.green { color: var(--green); border-color: rgba(120,180,136,0.35); }
@@ -454,59 +241,24 @@
     .person-tag.orange { color: var(--orange); border-color: rgba(190,131,83,0.35); }
     .person-tag.red { color: var(--red); border-color: rgba(197,102,102,0.35); }
 
-    .source-list {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 6px;
-      margin-top: 14px;
-    }
+    .source-list { display: grid; grid-template-columns: 1fr; gap: 6px; margin-top: 14px; }
 
     .source-row {
-      padding: 12px 0;
-      background: transparent;
-      border-left: 0;
-      border-right: 0;
-      border-bottom: 0;
-      display: grid;
-      grid-template-columns: 170px 1fr;
-      gap: 18px;
-      align-items: start;
+      padding: 12px 0; background: transparent; border-left: 0; border-right: 0; border-bottom: 0;
+      display: grid; grid-template-columns: 170px 1fr; gap: 18px; align-items: start;
     }
 
-    .source-title {
-      font-size: 14px;
-      line-height: 1.35;
-      color: var(--text);
-    }
+    .source-title { font-size: 14px; line-height: 1.35; color: var(--text); }
 
     .error-box {
-      margin-top: 18px;
-      color: var(--red);
-      padding: 14px 16px;
-      font-size: 13px;
-      line-height: 1.45;
-      border-color: rgba(204,122,122,0.35);
-    }
-
-    .cache-note {
-      margin-top: 16px;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      color: var(--soft);
+      margin-top: 18px; color: var(--red); padding: 14px 16px; font-size: 13px;
+      line-height: 1.45; border-color: rgba(204,122,122,0.35);
     }
 
     @media (max-width: 980px) {
-      .section-grid,
-      .three-col,
-      .record-hero {
-        grid-template-columns: 1fr;
-      }
-
-      .source-row {
-        grid-template-columns: 1fr;
-        gap: 6px;
-      }
+      .section-grid, .three-col, .record-hero { grid-template-columns: 1fr; }
+      .score-card { min-height: auto; }
+      .source-row { grid-template-columns: 1fr; gap: 6px; }
     }
 
     @media (max-width: 640px) {
@@ -545,9 +297,7 @@
             <input id="film-input" type="text" placeholder="Rechercher un film…" />
             <button id="search-button" type="submit">Search</button>
           </form>
-          <div class="nav-sub">OpenAI web search · IA synthesis · Sources rendered</div>
           <div class="examples-inline">Exemples : Black Swan · Joker · Calmos</div>
-          <div class="cache-note">Les fiches déjà générées sont gardées dans le navigateur et réaffichées instantanément.</div>
           <div class="error-box hidden" id="error-box"></div>
         </div>
       </div>
@@ -555,7 +305,7 @@
       <section class="section">
         <div class="section-grid">
           <div><h2>Search → analyze → store</h2></div>
-          <div><p>When a film is searched for the first time, FilmCheck generates the record, stores it in browser cache, then serves it instantly the next time on the same device.</p></div>
+          <div><p>When a film is searched for the first time, FilmCheck generates the record, stores it in the database, then serves it instantly next time.</p></div>
         </div>
       </section>
 
@@ -627,8 +377,7 @@
     const form = document.getElementById("film-form");
     const button = document.getElementById("search-button");
     const errorBox = document.getElementById("error-box");
-    const CACHE_KEY = "filmcheck_records_v2";
-    const LAST_RECORD_KEY = "filmcheck_last_record_v2";
+    const LAST_RECORD_KEY = "filmcheck_last_record_v4";
 
     function escapeHtml(value) {
       return String(value ?? "")
@@ -637,15 +386,6 @@
         .replaceAll(">", "&gt;")
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#39;");
-    }
-
-    function slugify(value) {
-      return String(value || "")
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/(^-|-$)/g, "");
     }
 
     function setActiveNav(which) {
@@ -662,33 +402,17 @@
       setActiveNav(which === "film" ? "search" : which);
     }
 
-    function loadCache() {
-      try {
-        return JSON.parse(localStorage.getItem(CACHE_KEY) || "{}");
-      } catch {
-        return {};
-      }
-    }
-
-    function saveToCache(record) {
-      const cache = loadCache();
-      const key = slugify(record.title);
-      cache[key] = record;
-      localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
-      localStorage.setItem(LAST_RECORD_KEY, JSON.stringify(record));
-    }
-
-    function getFromCache(title) {
-      const cache = loadCache();
-      return cache[slugify(title)] || null;
-    }
-
     function getLastRecord() {
       try {
         return JSON.parse(localStorage.getItem(LAST_RECORD_KEY) || "null");
       } catch {
         return null;
       }
+    }
+
+    function saveLastRecord(record) {
+      if (!record || !record.title) return;
+      localStorage.setItem(LAST_RECORD_KEY, JSON.stringify(record));
     }
 
     function tagClassFromStatus(status) {
@@ -709,8 +433,7 @@
       return "red";
     }
 
-    function statusLabel(score, status) {
-      if (status) return status;
+    function statusLabel(score) {
       const tone = scoreTone(score);
       if (tone === "green") return "Low vigilance";
       if (tone === "yellow") return "Limited caution";
@@ -719,6 +442,8 @@
     }
 
     function renderFilm(record) {
+      if (!record || !record.title) return;
+
       const score = Number(record.vigilance_index ?? 0);
       const tone = scoreTone(score, record.status_class);
       const people = Array.isArray(record.people) ? record.people : [];
@@ -740,10 +465,11 @@
               <div>
                 <div class="score-top">
                   <div class="score-label">FilmCheck score</div>
-                  <div class="score-pill ${tone}">${escapeHtml(statusLabel(score, record.status))}</div>
+                  <div class="score-pill ${tone}">${escapeHtml(statusLabel(score))}</div>
                 </div>
+
                 <div class="score-number">${escapeHtml(score)}<span class="score-denom">/100</span></div>
-                <div class="score-status">${escapeHtml(statusLabel(score, record.status))}</div>
+                <div class="score-status">${escapeHtml(statusLabel(score))}</div>
                 <div class="score-brief">${escapeHtml(record.hero_note || record.summary || "")}</div>
               </div>
 
@@ -803,6 +529,7 @@
           </main>
         </div>
       `;
+
       showOnly("film");
     }
 
@@ -810,12 +537,8 @@
       errorBox.classList.add("hidden");
       errorBox.textContent = "";
 
-      const cached = getFromCache(title);
-      if (cached) {
-        window.location.hash = "#/film";
-        renderFilm(cached);
-        return;
-      }
+      const cleanTitle = title.trim();
+      if (!cleanTitle) return;
 
       button.disabled = true;
       button.textContent = "Loading";
@@ -824,7 +547,7 @@
         const response = await fetch("/api/analyze", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ title })
+          body: JSON.stringify({ title: cleanTitle })
         });
 
         const text = await response.text();
@@ -844,7 +567,7 @@
           throw new Error("Empty or invalid film data");
         }
 
-        saveToCache(payload);
+        saveLastRecord(payload);
         window.location.hash = "#/film";
         renderFilm(payload);
       } catch (err) {

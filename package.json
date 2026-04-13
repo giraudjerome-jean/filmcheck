@@ -1,8 +1,9 @@
 {
-  "name": "filmcheck-ai-site",
+  "name": "filmcheck-final-supabase",
   "private": true,
   "type": "module",
   "dependencies": {
-    "openai": "^6.1.0"
+    "openai": "^6.1.0",
+    "@supabase/supabase-js": "^2.49.8"
   }
 }

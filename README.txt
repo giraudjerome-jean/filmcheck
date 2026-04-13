@@ -1,18 +1,27 @@
-FilmCheck AI-backed V1
+FilmCheck final version with real database
 
-Files:
+Files to update:
 - index.html
 - api/analyze.js
 - package.json
-- vercel.json
 
-Deployment:
-1. Put `Radial Regular.otf` and `Radial Semi Bold.otf` next to index.html if you want the intended typography.
-2. Deploy on Vercel or another platform that supports Node serverless functions.
-3. Add the environment variable OPENAI_API_KEY on the server.
-4. Install dependencies with npm install.
+New file:
+- supabase_schema.sql
+
+Environment variables required on Vercel:
+- OPENAI_API_KEY
+- SUPABASE_URL
+- SUPABASE_SERVICE_ROLE_KEY
+
+Supabase setup:
+1. Create a Supabase project
+2. Open SQL Editor
+3. Run the contents of supabase_schema.sql
+4. Copy the project URL into SUPABASE_URL
+5. Copy the service role key into SUPABASE_SERVICE_ROLE_KEY
 
 Behavior:
-- The front sends the film title to /api/analyze
-- The backend calls the OpenAI Responses API with web search enabled
-- The returned JSON is rendered as a FilmCheck record
+- Search a film
+- Backend checks Supabase first
+- If found: returns saved record instantly
+- If not found: calls OpenAI with web search, stores the record in Supabase, then returns it
