@@ -7,7 +7,13 @@ const openai = new OpenAI({
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
+  process.env.SUPABASE_SERVICE_ROLE_KEY,
+  {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+    },
+  }
 );
 
 function safeJsonParse(text) {
@@ -86,9 +92,9 @@ async function saveFilm(payload) {
   const row = {
     slug,
     title: payload.title,
-    payload,
-    score: payload.vigilance_index || 0,
     status: payload.status || "Limited caution",
+    score: Number(payload.vigilance_index || 0),
+    payload,
     updated_at: new Date().toISOString(),
   };
 
@@ -111,7 +117,7 @@ export default async function handler(req, res) {
   }
 
   if (!process.env.OPENAI_API_KEY) {
-    return res.status(500).json({ error: "OPENAI_API_KEY is not configured on the server" });
+    return res.status(500).json({ error: "OPENAI_API_KEY is not configured" });
   }
 
   if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
@@ -135,6 +141,8 @@ Rules:
 - status must be very short
 - never return long editorial sentences in status
 - keep descriptions concise
+- be cautious with legal sensitivity
+- separate convictions, proceedings, accusations, controversies
 
 Return:
 {
@@ -200,12 +208,12 @@ Return:
       generated_at: parsed.generated_at || todayIsoDate(),
       hero_note: parsed.hero_note || parsed.summary || "",
       summary: parsed.summary || "",
-      summary_items: parsed.summary_items || [],
-      breakdown: parsed.breakdown || {
-        convictions: 0,
-        proceedings: 0,
-        accusations: 0,
-        controversies: 0,
+      summary_items: Array.isArray(parsed.summary_items) ? parsed.summary_items.slice(0, 3) : [],
+      breakdown: {
+        convictions: Number(parsed?.breakdown?.convictions || 0),
+        proceedings: Number(parsed?.breakdown?.proceedings || 0),
+        accusations: Number(parsed?.breakdown?.accusations || 0),
+        controversies: Number(parsed?.breakdown?.controversies || 0),
       },
       people: normalizePeople(parsed.people),
       sources: normalizeSources(parsed.sources),
@@ -219,6 +227,8 @@ Return:
 
     return res.status(200).json(payload);
   } catch (error) {
-    return res.status(500).json({ error: error.message || "Unexpected server error" });
+    return res.status(500).json({
+      error: error?.message || "Unexpected server error",
+    });
   }
 }
