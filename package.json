@@ -1,0 +1,8 @@
+{
+  "name": "filmcheck-ai-site",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "openai": "^6.1.0"
+  }
+}
