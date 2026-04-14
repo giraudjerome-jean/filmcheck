@@ -9,14 +9,26 @@
     @font-face { font-family: "Radial"; src: url("Radial Semi Bold.otf") format("opentype"); font-weight: 600; font-style: normal; font-display: swap; }
 
     :root {
-      --bg:#000; --panel:#0d0d0d; --border:rgba(255,255,255,0.11); --border-strong:rgba(255,255,255,0.22);
-      --text:#f4f4f1; --muted:rgba(244,244,241,0.66); --soft:rgba(244,244,241,0.42);
-      --green:#78b488; --yellow:#d4bd62; --orange:#be8353; --red:#c56666;
-      --max:1280px; --gutter:34px; --radius:3px;
+      --bg:#000;
+      --panel:#0d0d0d;
+      --border:rgba(255,255,255,0.11);
+      --border-strong:rgba(255,255,255,0.22);
+      --text:#f4f4f1;
+      --muted:rgba(244,244,241,0.66);
+      --soft:rgba(244,244,241,0.42);
+      --green:#78b488;
+      --green-soft:#9bcf9f;
+      --yellow:#d4bd62;
+      --orange:#be8353;
+      --red:#c56666;
+      --max:1280px;
+      --gutter:34px;
+      --radius:3px;
     }
 
     * { box-sizing: border-box; }
     html { background: var(--bg); scroll-behavior: smooth; }
+
     body {
       margin: 0;
       background: linear-gradient(to bottom, rgba(255,255,255,0.04), rgba(255,255,255,0) 220px), var(--bg);
@@ -29,7 +41,11 @@
     a { color: inherit; text-decoration: none; }
     button, input { font-family: inherit; }
 
-    .page { max-width: var(--max); margin: 0 auto; padding: 26px var(--gutter) 110px; }
+    .page {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 26px var(--gutter) 110px;
+    }
 
     .topbar {
       display: flex;
@@ -42,14 +58,31 @@
       font-size: 12px;
     }
 
-    .brand { display: flex; align-items: center; gap: 14px; cursor: pointer; }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+    }
+
     .brand-mark {
-      width: 10px; height: 10px; background: var(--text); border-radius: 50%;
+      width: 10px;
+      height: 10px;
+      background: var(--text);
+      border-radius: 50%;
       box-shadow: 0 0 0 4px rgba(255,255,255,0.07);
     }
 
-    .topnav { display: flex; gap: 20px; color: var(--muted); }
-    .nav-link.active, .nav-link:hover { color: var(--text); }
+    .topnav {
+      display: flex;
+      gap: 20px;
+      color: var(--muted);
+    }
+
+    .nav-link.active,
+    .nav-link:hover {
+      color: var(--text);
+    }
 
     .hero {
       min-height: 76vh;
@@ -120,7 +153,9 @@
       border-radius: var(--radius);
     }
 
-    .search input::placeholder { color: rgba(244,244,241,0.38); }
+    .search input::placeholder {
+      color: rgba(244,244,241,0.38);
+    }
 
     .search button {
       height: 72px;
@@ -135,7 +170,10 @@
       border-radius: var(--radius);
     }
 
-    .search button:disabled { opacity: .55; cursor: default; }
+    .search button:disabled {
+      opacity: .55;
+      cursor: default;
+    }
 
     .examples-inline {
       margin-top: 16px;
@@ -174,7 +212,9 @@
       max-width: 720px;
     }
 
-    .record-wrap { padding-top: 24px; }
+    .record-wrap {
+      padding-top: 24px;
+    }
 
     .crumbs {
       margin-top: 20px;
@@ -189,15 +229,17 @@
 
     .record-hero {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 300px;
-      gap: 34px;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 28px;
       padding: 30px 0 30px;
       border-bottom: 1px solid var(--border);
       align-items: start;
-      max-width: 1060px;
+      max-width: 980px;
     }
 
-    .record-hero > * { min-width: 0; }
+    .record-hero > * {
+      min-width: 0;
+    }
 
     .record-subline {
       margin-top: 16px;
@@ -208,34 +250,42 @@
     }
 
     .score-card {
-      padding: 22px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 320px;
+      min-height: 310px;
       overflow: hidden;
-      width: 300px;
+      width: 280px;
       justify-self: start;
+      background: var(--panel);
+      border: 1px solid var(--border);
     }
 
     .score-card.green {
       background: linear-gradient(to bottom, rgba(120,180,136,0.12), rgba(120,180,136,0.02)), var(--panel);
       border-color: rgba(120,180,136,0.35);
     }
+
+    .score-card.green-soft {
+      background: linear-gradient(to bottom, rgba(155,207,159,0.12), rgba(155,207,159,0.02)), var(--panel);
+      border-color: rgba(155,207,159,0.35);
+    }
+
     .score-card.yellow {
       background: linear-gradient(to bottom, rgba(212,189,98,0.12), rgba(212,189,98,0.02)), var(--panel);
       border-color: rgba(212,189,98,0.35);
     }
+
     .score-card.orange {
       background: linear-gradient(to bottom, rgba(190,131,83,0.12), rgba(190,131,83,0.02)), var(--panel);
       border-color: rgba(190,131,83,0.35);
     }
+
     .score-card.red {
       background: linear-gradient(to bottom, rgba(197,102,102,0.12), rgba(197,102,102,0.02)), var(--panel);
       border-color: rgba(197,102,102,0.35);
     }
-
-    .score-top { display: block; }
 
     .score-label {
       font-size: 12px;
@@ -259,32 +309,53 @@
     }
 
     .score-pill.green { color: var(--green); border-color: rgba(120,180,136,0.35); }
+    .score-pill.green-soft { color: var(--green-soft); border-color: rgba(155,207,159,0.35); }
     .score-pill.yellow { color: var(--yellow); border-color: rgba(212,189,98,0.35); }
     .score-pill.orange { color: var(--orange); border-color: rgba(190,131,83,0.35); }
     .score-pill.red { color: var(--red); border-color: rgba(197,102,102,0.35); }
 
-    .score-number {
-      font-size: 120px;
-      line-height: .86;
-      letter-spacing: -.06em;
-      font-weight: 600;
+    .score-visual {
       margin-top: 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
     }
 
-    .score-denom { font-size: 26px; color: var(--muted); letter-spacing: 0; margin-left: 6px; }
+    .score-face svg {
+      width: 74px;
+      height: 74px;
+      display: block;
+    }
+
+    .score-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
 
     .score-status {
-      margin-top: 10px;
-      font-size: 18px;
-      line-height: 1.05;
+      font-size: 22px;
+      line-height: 1;
       text-transform: uppercase;
       letter-spacing: -.01em;
       font-weight: 600;
-      max-width: 100%;
+    }
+
+    .score-number {
+      font-size: 34px;
+      line-height: 1;
+      letter-spacing: -.04em;
+      font-weight: 600;
+    }
+
+    .score-denom {
+      font-size: 18px;
+      color: var(--muted);
+      margin-left: 4px;
     }
 
     .score-brief {
-      margin-top: 16px;
+      margin-top: 18px;
       font-size: 14px;
       line-height: 1.45;
       color: var(--muted);
@@ -307,11 +378,29 @@
       color: var(--soft);
     }
 
-    .score-item-value { font-size: 28px; line-height: .95; margin-top: 4px; }
+    .score-item-value {
+      font-size: 28px;
+      line-height: .95;
+      margin-top: 4px;
+    }
 
-    .record-main { display: grid; grid-template-columns: 1fr; gap: 30px; padding-top: 30px; }
-    .people-grid { display: grid; gap: 12px; }
-    .person-card { padding: 16px 18px; border: 1px solid var(--border); background: var(--panel); }
+    .record-main {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+      padding-top: 30px;
+    }
+
+    .people-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .person-card {
+      padding: 16px 18px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+    }
 
     .person-top {
       display: flex;
@@ -353,11 +442,17 @@
     }
 
     .person-tag.green { color: var(--green); border-color: rgba(120,180,136,0.35); }
+    .person-tag.green-soft { color: var(--green-soft); border-color: rgba(155,207,159,0.35); }
     .person-tag.yellow { color: var(--yellow); border-color: rgba(212,189,98,0.35); }
     .person-tag.orange { color: var(--orange); border-color: rgba(190,131,83,0.35); }
     .person-tag.red { color: var(--red); border-color: rgba(197,102,102,0.35); }
 
-    .source-list { display: grid; grid-template-columns: 1fr; gap: 6px; margin-top: 14px; }
+    .source-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+      margin-top: 14px;
+    }
 
     .source-row {
       padding: 12px 0;
@@ -369,7 +464,11 @@
       align-items: start;
     }
 
-    .source-title { font-size: 14px; line-height: 1.35; color: var(--text); }
+    .source-title {
+      font-size: 14px;
+      line-height: 1.35;
+      color: var(--text);
+    }
 
     .error-box {
       margin-top: 18px;
@@ -382,9 +481,21 @@
     }
 
     @media (max-width: 980px) {
-      .record-hero { grid-template-columns: 1fr; max-width: none; }
-      .score-card { min-height: auto; width: 100%; max-width: 360px; }
-      .source-row { grid-template-columns: 1fr; gap: 6px; }
+      .record-hero {
+        grid-template-columns: 1fr;
+        max-width: none;
+      }
+
+      .score-card {
+        min-height: auto;
+        width: 100%;
+        max-width: 360px;
+      }
+
+      .source-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
     }
 
     @media (max-width: 640px) {
@@ -392,9 +503,12 @@
       .topnav { display: none; }
       .search { grid-template-columns: 1fr; }
       h1 { font-size: 60px; }
-      .score-number { font-size: 94px; }
       .person-top { flex-direction: column; align-items: flex-start; }
       .footer { grid-template-columns: 1fr; }
+      .score-visual { gap: 12px; }
+      .score-face svg { width: 66px; height: 66px; }
+      .score-number { font-size: 30px; }
+      .score-status { font-size: 20px; }
     }
   </style>
 </head>
@@ -511,6 +625,87 @@
       localStorage.setItem(LAST_RECORD_KEY, JSON.stringify(record));
     }
 
+    function getDisplayScore(rawScore) {
+      return Math.max(0, Math.min(100, 100 - Number(rawScore || 0)));
+    }
+
+    function getScoreVisual(score) {
+      if (score >= 90) return { tone: "green", label: "Very safe", face: "very_happy", color: "#78b488" };
+      if (score >= 75) return { tone: "green-soft", label: "Safe", face: "happy", color: "#9bcf9f" };
+      if (score >= 55) return { tone: "yellow", label: "Neutral", face: "neutral", color: "#d4bd62" };
+      if (score >= 35) return { tone: "orange", label: "Reserved", face: "meh", color: "#be8353" };
+      if (score >= 10) return { tone: "red", label: "High concerns", face: "sad", color: "#c56666" };
+      return { tone: "red", label: "Critical concerns", face: "dead", color: "#c56666" };
+    }
+
+    function renderFace(type, color) {
+      if (type === "very_happy") {
+        return `
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" stroke="${color}" stroke-width="1.5"/>
+            <circle cx="9" cy="10" r="1" fill="${color}"/>
+            <circle cx="15" cy="10" r="1" fill="${color}"/>
+            <path d="M7.5 13.8c1.8 2.6 7.2 2.6 9 0" stroke="${color}" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        `;
+      }
+
+      if (type === "happy") {
+        return `
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" stroke="${color}" stroke-width="1.5"/>
+            <circle cx="9" cy="10" r="1" fill="${color}"/>
+            <circle cx="15" cy="10" r="1" fill="${color}"/>
+            <path d="M8 14c1.2 1.3 6.8 1.3 8 0" stroke="${color}" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        `;
+      }
+
+      if (type === "neutral") {
+        return `
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" stroke="${color}" stroke-width="1.5"/>
+            <circle cx="9" cy="10" r="1" fill="${color}"/>
+            <circle cx="15" cy="10" r="1" fill="${color}"/>
+            <line x1="8" y1="14" x2="16" y2="14" stroke="${color}" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        `;
+      }
+
+      if (type === "meh") {
+        return `
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" stroke="${color}" stroke-width="1.5"/>
+            <circle cx="9" cy="10" r="1" fill="${color}"/>
+            <circle cx="15" cy="10" r="1" fill="${color}"/>
+            <path d="M8 15c2-1 6-1 8 0" stroke="${color}" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        `;
+      }
+
+      if (type === "sad") {
+        return `
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" stroke="${color}" stroke-width="1.5"/>
+            <circle cx="9" cy="10" r="1" fill="${color}"/>
+            <circle cx="15" cy="10" r="1" fill="${color}"/>
+            <path d="M8 16c1.5-2 6.5-2 8 0" stroke="${color}" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        `;
+      }
+
+      return `
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" stroke="${color}" stroke-width="1.5"/>
+          <path d="M8.3 9.3L9.7 10.7" stroke="${color}" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M9.7 9.3L8.3 10.7" stroke="${color}" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M14.3 9.3L15.7 10.7" stroke="${color}" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M15.7 9.3L14.3 10.7" stroke="${color}" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M8 16c1.5-2 6.5-2 8 0" stroke="${color}" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      `;
+    }
+
     function tagClassFromStatus(status) {
       const s = String(status || "").toLowerCase();
       if (s.includes("none") || s.includes("clean") || s.includes("no signal") || s.includes("low")) return "green";
@@ -520,28 +715,13 @@
       return "yellow";
     }
 
-    function scoreTone(score, explicit) {
-      if (explicit && ["green", "yellow", "orange", "red"].includes(explicit)) return explicit;
-      const n = Number(score || 0);
-      if (n < 20) return "green";
-      if (n < 45) return "yellow";
-      if (n < 70) return "orange";
-      return "red";
-    }
-
-    function statusLabel(score) {
-      const tone = scoreTone(score);
-      if (tone === "green") return "Low vigilance";
-      if (tone === "yellow") return "Limited caution";
-      if (tone === "orange") return "Moderate caution";
-      return "High caution";
-    }
-
     function renderFilm(record) {
       if (!record || !record.title) return;
 
-      const score = Number(record.vigilance_index ?? 0);
-      const tone = scoreTone(score, record.status_class);
+      const rawScore = Number(record.vigilance_index ?? 0);
+      const displayScore = getDisplayScore(rawScore);
+      const visual = getScoreVisual(displayScore);
+
       const people = Array.isArray(record.people) ? record.people : [];
       const sources = Array.isArray(record.sources) ? record.sources : [];
       const breakdown = record.breakdown || { convictions: 0, proceedings: 0, accusations: 0, controversies: 0 };
@@ -557,15 +737,19 @@
               <div class="record-subline">${escapeHtml(record.subtitle || "")}</div>
             </div>
 
-            <aside class="score-card ${tone}">
+            <aside class="score-card ${visual.tone}">
               <div>
-                <div class="score-top">
-                  <div class="score-label">FilmCheck score</div>
-                  <div class="score-pill ${tone}">${escapeHtml(statusLabel(score))}</div>
+                <div class="score-label">FilmCheck score</div>
+                <div class="score-pill ${visual.tone}">${escapeHtml(visual.label)}</div>
+
+                <div class="score-visual">
+                  <div class="score-face">${renderFace(visual.face, visual.color)}</div>
+                  <div class="score-meta">
+                    <div class="score-status">${escapeHtml(visual.label)}</div>
+                    <div class="score-number">${displayScore}<span class="score-denom">/100</span></div>
+                  </div>
                 </div>
 
-                <div class="score-number">${escapeHtml(score)}<span class="score-denom">/100</span></div>
-                <div class="score-status">${escapeHtml(statusLabel(score))}</div>
                 <div class="score-brief">${escapeHtml(record.hero_note || record.summary || "")}</div>
               </div>
 
