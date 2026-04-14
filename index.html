@@ -512,16 +512,16 @@
     }
     .about-title {
   margin: 0;
-  max-width: 720px;
+  max-width: 760px;
   font-weight: 600;
-  font-size: clamp(40px, 6vw, 72px);
-  line-height: .95;
+  font-size: clamp(42px, 6vw, 72px);
+  line-height: .92;
   letter-spacing: -.04em;
   text-transform: uppercase;
 }
 
 .about-intro {
-  margin-top: 18px;
+  margin-top: 20px;
   max-width: 760px;
   font-size: 22px;
   line-height: 1.2;
@@ -530,12 +530,17 @@
 }
 
 .about-section {
-  max-width: 920px;
+  padding: 28px 0;
+  border-top: 1px solid var(--border);
+}
+
+.about-section + .about-section {
+  padding-top: 10px;
 }
 
 .about-section h2 {
-  margin: 0 0 10px;
-  font-size: 22px;
+  margin: 0 0 14px;
+  font-size: 20px;
   line-height: 1;
   letter-spacing: -.02em;
   text-transform: uppercase;
@@ -545,8 +550,8 @@
   margin: 0;
   max-width: 920px;
   color: var(--muted);
-  font-size: 18px;
-  line-height: 1.5;
+  font-size: 17px;
+  line-height: 1.55;
 }
   </style>
 </head>
@@ -583,7 +588,8 @@
     <section id="view-film" class="hidden"></section>
 
 <section id="view-about" class="hidden">
-  <section class="section" style="padding-top:42px;border-top:0;">
+
+  <section class="section" style="padding-top:42px;padding-bottom:20px;border-top:0;">
     <div class="eyebrow">About</div>
     <h1 class="about-title">About FilmCheck</h1>
     <div class="about-intro">FilmCheck is a reading tool, not a tribunal.</div>
@@ -608,6 +614,7 @@
     <h2>Signal types</h2>
     <p>FilmCheck separates convictions, proceedings, accusations and controversies, and shows them in a simple, readable way.</p>
   </section>
+
 </section>
 
     <footer class="footer">
