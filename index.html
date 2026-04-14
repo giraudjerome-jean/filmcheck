@@ -917,59 +917,56 @@
     }
 
     async function analyzeFilm(title) {
-      errorBox.classList.add("hidden");
-      errorBox.textContent = "";
+  errorBox.classList.add("hidden");
+  errorBox.textContent = "";
 
-      const cleanTitle = title.trim();
-      if (!cleanTitle) return;
-      const cleanTitle = title.trim();
-if (!cleanTitle) return;
+  const cleanTitle = title.trim();
+  if (!cleanTitle) return;
 
-loader.classList.remove("hidden");
+  loader.classList.remove("hidden");
+  button.disabled = true;
+  button.textContent = "Loading";
 
-      button.disabled = true;
-      button.textContent = "Loading";
+  try {
+    const response = await fetch("/api/analyze", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title: cleanTitle })
+    });
 
-      try {
-        const response = await fetch("/api/analyze", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ title: cleanTitle })
-        });
+    const text = await response.text();
 
-        const text = await response.text();
-
-        let payload;
-        try {
-          payload = JSON.parse(text);
-        } catch {
-          throw new Error("Invalid JSON returned by API");
-        }
-
-        if (!response.ok) {
-          throw new Error(
-            [payload.error, payload.details, payload.supabaseUrl, payload.keyPrefix]
-              .filter(Boolean)
-              .join(" — ") || "Server error"
-          );
-        }
-
-        if (!payload || !payload.title) {
-          throw new Error("Empty or invalid film data");
-        }
-
-        saveLastRecord(payload);
-        window.location.hash = "#/film";
-        renderFilm(payload);
-      } catch (err) {
-        errorBox.textContent = err.message || "Unable to analyze this film.";
-        errorBox.classList.remove("hidden");
-      } finally {
-  button.disabled = false;
-  loader.classList.add("hidden");
-  button.textContent = "Search";
-}
+    let payload;
+    try {
+      payload = JSON.parse(text);
+    } catch {
+      throw new Error("Invalid JSON returned by API");
     }
+
+    if (!response.ok) {
+      throw new Error(
+        [payload.error, payload.details, payload.supabaseUrl, payload.keyPrefix]
+          .filter(Boolean)
+          .join(" — ") || "Server error"
+      );
+    }
+
+    if (!payload || !payload.title) {
+      throw new Error("Empty or invalid film data");
+    }
+
+    saveLastRecord(payload);
+    window.location.hash = "#/film";
+    renderFilm(payload);
+  } catch (err) {
+    errorBox.textContent = err.message || "Unable to analyze this film.";
+    errorBox.classList.remove("hidden");
+  } finally {
+    button.disabled = false;
+    loader.classList.add("hidden");
+    button.textContent = "Search";
+  }
+}
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
