@@ -530,7 +530,7 @@
 }
 
 .about-section {
-  padding: 28px 0;
+  padding: 36px 0;
   border-top: 1px solid var(--border);
 }
 
@@ -539,7 +539,7 @@
 }
 
 .about-section h2 {
-  margin: 0 0 14px;
+  margin: 0 0 16px;
   font-size: 20px;
   line-height: 1;
   letter-spacing: -.02em;
@@ -548,10 +548,32 @@
 
 .about-section p {
   margin: 0;
-  max-width: 920px;
+  max-width: 720px;
   color: var(--muted);
   font-size: 17px;
-  line-height: 1.55;
+  line-height: 1.7;
+}
+    .contact-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 17px;
+  color: var(--text);
+}
+
+.contact-icon {
+  font-size: 16px;
+  opacity: 0.7;
+}
+
+.contact-line a {
+  color: var(--text);
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.contact-line a:hover {
+  text-decoration: underline;
 }
   </style>
 </head>
@@ -605,16 +627,17 @@
     <p>The score displayed on FilmCheck is an interpretation layer. It distinguishes convictions, proceedings, accusations and controversies, and is meant to help users understand context at a glance.</p>
   </section>
 
-  <section class="section about-section">
-    <h2>Important nuance</h2>
-    <p>FilmCheck does not treat all signals as equal. Allegations, court proceedings, confirmed convictions and broader public controversies are separated clearly to avoid flattening very different situations into one judgment.</p>
-  </section>
+<section class="section about-section">
+  <h2>Signal types</h2>
+  <p>FilmCheck separates convictions, proceedings, accusations and controversies, and shows them in a simple, readable way.</p>
+</section>
 
-  <section class="section about-section">
-    <h2>Signal types</h2>
-    <p>FilmCheck separates convictions, proceedings, accusations and controversies, and shows them in a simple, readable way.</p>
-  </section>
-
+<section class="section about-section">
+  <h2>Contact</h2>
+  <p class="contact-line">
+  <span class="contact-icon">✉</span>
+  <a href="mailto:filmcheckcontact@gmail.com">filmcheckcontact@gmail.com</a>
+</p>
 </section>
 
     <footer class="footer">
