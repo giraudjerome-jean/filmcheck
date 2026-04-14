@@ -577,9 +577,30 @@
 }
 
 .contact-line a:hover {
-  border-bottom-color: rgba(255,255,255,0.5);
+  text-decoration: underline;
 }
-  </style>
+
+.loading {
+  margin-top: 14px;
+  font-size: 13px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--soft);
+}
+
+.dots::after {
+  content: "";
+  animation: dots 1.4s infinite;
+}
+
+@keyframes dots {
+  0%   { content: ""; }
+  25%  { content: "."; }
+  50%  { content: ".."; }
+  75%  { content: "..."; }
+  100% { content: ""; }
+}
+</style>
 </head>
 <body>
   <div class="page">
@@ -602,11 +623,16 @@
 
         <div class="search-wrap">
           <form class="search" id="film-form">
-            <input id="film-input" type="text" placeholder="Enter a film title" />
-            <button id="search-button" type="submit">Search</button>
-          </form>
-          <div class="examples-inline">Exemples: Black Swan · Joker · Barbie</div>
-          <div class="error-box hidden" id="error-box"></div>
+  <input id="film-input" type="text" placeholder="Enter a film title" />
+  <button id="search-button" type="submit">Search</button>
+</form>
+
+<div id="loading-indicator" class="loading hidden">
+  Searching<span class="dots"></span>
+</div>
+
+<div class="examples-inline">Examples: Black Swan · Joker · Barbie</div>
+<div class="error-box hidden" id="error-box"></div>
         </div>
       </div>
     </section>
@@ -665,6 +691,7 @@
     const form = document.getElementById("film-form");
     const button = document.getElementById("search-button");
     const errorBox = document.getElementById("error-box");
+    const loader = document.getElementById("loading-indicator");
     const LAST_RECORD_KEY = "filmcheck_last_record_v4";
 
     function escapeHtml(value) {
@@ -895,6 +922,10 @@
 
       const cleanTitle = title.trim();
       if (!cleanTitle) return;
+      const cleanTitle = title.trim();
+if (!cleanTitle) return;
+
+loader.classList.remove("hidden");
 
       button.disabled = true;
       button.textContent = "Loading";
@@ -934,9 +965,10 @@
         errorBox.textContent = err.message || "Unable to analyze this film.";
         errorBox.classList.remove("hidden");
       } finally {
-        button.disabled = false;
-        button.textContent = "Search";
-      }
+  button.disabled = false;
+  loader.classList.add("hidden");
+  button.textContent = "Search";
+}
     }
 
     form.addEventListener("submit", function (e) {
