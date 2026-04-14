@@ -521,7 +521,6 @@
       </div>
       <nav class="topnav">
         <a href="#/" class="nav-link active" id="nav-search">Search</a>
-        <a href="#/methodology" class="nav-link" id="nav-methodology">Methodology</a>
         <a href="#/about" class="nav-link" id="nav-about">About</a>
       </nav>
     </header>
@@ -534,10 +533,10 @@
 
         <div class="search-wrap">
           <form class="search" id="film-form">
-            <input id="film-input" type="text" placeholder="Rechercher un film…" />
+            <input id="film-input" type="text" placeholder="Enter a film title" />
             <button id="search-button" type="submit">Search</button>
           </form>
-          <div class="examples-inline">Exemples : Black Swan · Joker · Calmos</div>
+          <div class="examples-inline">Exemples: Black Swan · Joker · Barbie</div>
           <div class="error-box hidden" id="error-box"></div>
         </div>
       </div>
@@ -545,12 +544,36 @@
 
     <section id="view-film" class="hidden"></section>
 
-    <section id="view-methodology" class="hidden">
-      <section class="section" style="padding-top:42px;border-top:0;">
-        <div class="eyebrow">Methodology</div>
-        <h1>How FilmCheck reads a record</h1>
-        <div class="hero-sub" style="max-width:760px;font-size:18px;line-height:1.4;color:var(--muted);letter-spacing:0;">This page keeps the method outside the film record itself.</div>
-      </section>
+    <section id="view-about" class="hidden">
+  <section class="section" style="padding-top:42px;border-top:0;">
+    <div class="eyebrow">About</div>
+    <h1>Transparency for film credits</h1>
+    <div class="hero-sub" style="max-width:760px;font-size:18px;line-height:1.4;color:var(--muted);letter-spacing:0;">
+      FilmCheck is a reading tool, not a tribunal.
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-grid">
+      <div><h2>What it does</h2></div>
+      <div><p>FilmCheck helps users read a film through the people behind it. It highlights documented legal or public-conduct signals linked to key credited figures.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-grid">
+      <div><h2>How it works</h2></div>
+      <div><p>The score displayed on FilmCheck is an interpretation layer. It distinguishes convictions, proceedings, accusations and controversies, and is meant to help users understand context at a glance.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-grid">
+      <div><h2>Important nuance</h2></div>
+      <div><p>FilmCheck does not treat all signals as equal. Allegations, court proceedings, confirmed convictions and broader public controversies are separated clearly to avoid flattening very different situations into one judgment.</p></div>
+    </div>
+  </section>
+</section>
       <section class="section">
         <div class="section-grid">
           <div><h2>Signal types</h2></div>
@@ -569,7 +592,6 @@
 
     <footer class="footer">
       <div class="footer-links">
-        <a href="#/methodology">Methodology</a>
         <a href="#/about">About</a>
       </div>
       <div class="footer-note">
@@ -600,17 +622,15 @@
 
     function setActiveNav(which) {
       document.getElementById("nav-search").classList.toggle("active", which === "search");
-      document.getElementById("nav-methodology").classList.toggle("active", which === "methodology");
       document.getElementById("nav-about").classList.toggle("active", which === "about");
     }
 
     function showOnly(which) {
-      home.classList.toggle("hidden", which !== "home");
-      filmView.classList.toggle("hidden", which !== "film");
-      methodologyView.classList.toggle("hidden", which !== "methodology");
-      aboutView.classList.toggle("hidden", which !== "about");
-      setActiveNav(which === "film" ? "search" : which);
-    }
+  home.classList.toggle("hidden", which !== "home");
+  filmView.classList.toggle("hidden", which !== "film");
+  aboutView.classList.toggle("hidden", which !== "about");
+  setActiveNav(which === "film" ? "search" : which);
+}
 
     function getLastRecord() {
       try {
@@ -876,22 +896,20 @@
     });
 
     function route() {
-      const hash = window.location.hash || "#/";
-      if (hash === "#/methodology") {
-        showOnly("methodology");
-      } else if (hash === "#/about") {
-        showOnly("about");
-      } else if (hash === "#/film") {
-        const last = getLastRecord();
-        if (last) {
-          renderFilm(last);
-        } else {
-          showOnly("home");
-        }
-      } else {
-        showOnly("home");
-      }
+  const hash = window.location.hash || "#/";
+  if (hash === "#/about") {
+    showOnly("about");
+  } else if (hash === "#/film") {
+    const last = getLastRecord();
+    if (last) {
+      renderFilm(last);
+    } else {
+      showOnly("home");
     }
+  } else {
+    showOnly("home");
+  }
+}
 
     window.addEventListener("hashchange", route);
     route();
