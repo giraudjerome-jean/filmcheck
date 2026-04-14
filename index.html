@@ -628,7 +628,7 @@
 </form>
 
 <div id="loading-indicator" class="loading hidden">
-  Searching<span class="dots"></span>
+  <span id="loading-text">Searching</span><span class="dots"></span>
 </div>
 
 <div class="examples-inline">Examples: Black Swan · Joker · Barbie</div>
@@ -692,6 +692,7 @@
     const button = document.getElementById("search-button");
     const errorBox = document.getElementById("error-box");
     const loader = document.getElementById("loading-indicator");
+    const loaderText = document.getElementById("loading-text");
     const LAST_RECORD_KEY = "filmcheck_last_record_v4";
 
     function escapeHtml(value) {
@@ -916,6 +917,25 @@
       showOnly("film");
     }
 
+    const loadingMessages = ["Searching", "Building report", "Almost there"];
+let loadingInterval = null;
+
+function startLoadingMessages() {
+  let i = 0;
+  loaderText.textContent = loadingMessages[0];
+
+  loadingInterval = setInterval(() => {
+    i = (i + 1) % loadingMessages.length;
+    loaderText.textContent = loadingMessages[i];
+  }, 1600);
+}
+
+function stopLoadingMessages() {
+  clearInterval(loadingInterval);
+  loadingInterval = null;
+  loaderText.textContent = "Searching";
+}
+
     async function analyzeFilm(title) {
   errorBox.classList.add("hidden");
   errorBox.textContent = "";
@@ -924,6 +944,7 @@
   if (!cleanTitle) return;
 
   loader.classList.remove("hidden");
+      startLoadingMessages();
   button.disabled = true;
   button.textContent = "Loading";
 
@@ -964,6 +985,7 @@
   } finally {
     button.disabled = false;
     loader.classList.add("hidden");
+    stopLoadingMessages();
     button.textContent = "Search";
   }
 }
