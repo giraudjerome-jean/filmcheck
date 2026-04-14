@@ -499,17 +499,23 @@
     }
 
     @media (max-width: 640px) {
-      .page { padding: 20px 18px 80px; }
-      .topnav { display: none; }
-      .search { grid-template-columns: 1fr; }
-      h1 { font-size: 60px; }
-      .person-top { flex-direction: column; align-items: flex-start; }
-      .footer { grid-template-columns: 1fr; }
-      .score-visual { gap: 12px; }
-      .score-face svg { width: 66px; height: 66px; }
-      .score-number { font-size: 30px; }
-      .score-status { font-size: 20px; }
-    }
+  .page { padding: 20px 18px 80px; }
+
+  .topnav {
+    display: flex;
+    gap: 14px;
+    font-size: 11px;
+  }
+
+  .search { grid-template-columns: 1fr; }
+  h1 { font-size: 60px; }
+  .person-top { flex-direction: column; align-items: flex-start; }
+  .footer { grid-template-columns: 1fr; }
+  .score-visual { gap: 12px; }
+  .score-face svg { width: 66px; height: 66px; }
+  .score-number { font-size: 30px; }
+  .score-status { font-size: 20px; }
+}
     .about-title {
   margin: 0;
   max-width: 760px;
@@ -530,16 +536,12 @@
 }
 
 .about-section {
-  padding: 36px 0;
+  padding: 42px 0;
   border-top: 1px solid var(--border);
 }
 
-.about-section + .about-section {
-  padding-top: 10px;
-}
-
 .about-section h2 {
-  margin: 0 0 16px;
+  margin: 0 0 18px;
   font-size: 20px;
   line-height: 1;
   letter-spacing: -.02em;
@@ -551,29 +553,31 @@
   max-width: 720px;
   color: var(--muted);
   font-size: 17px;
-  line-height: 1.7;
+  line-height: 1.75;
 }
     .contact-line {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
   font-size: 17px;
   color: var(--text);
 }
 
 .contact-icon {
-  font-size: 16px;
-  opacity: 0.7;
+  font-size: 22px;
+  line-height: 1;
+  opacity: 0.85;
 }
 
 .contact-line a {
   color: var(--text);
   text-decoration: none;
-  word-break: break-all;
+  border-bottom: 1px solid rgba(255,255,255,0.18);
+  padding-bottom: 2px;
 }
 
 .contact-line a:hover {
-  text-decoration: underline;
+  border-bottom-color: rgba(255,255,255,0.5);
 }
   </style>
 </head>
@@ -635,12 +639,14 @@
 <section class="section about-section">
   <h2>Contact</h2>
   <p class="contact-line">
-  <span class="contact-icon">✉</span>
-  <a href="mailto:filmcheckcontact@gmail.com">filmcheckcontact@gmail.com</a>
-</p>
+    <span class="contact-icon">✉</span>
+    <a href="mailto:filmcheckcontact@gmail.com">Contact us</a>
+  </p>
 </section>
 
-    <footer class="footer">
+</section>
+
+<footer class="footer">
       <div class="footer-links">
         <a href="#/about">About</a>
       </div>
