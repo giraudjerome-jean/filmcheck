@@ -510,6 +510,44 @@
       .score-number { font-size: 30px; }
       .score-status { font-size: 20px; }
     }
+    .about-title {
+  margin: 0;
+  max-width: 720px;
+  font-weight: 600;
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: .95;
+  letter-spacing: -.04em;
+  text-transform: uppercase;
+}
+
+.about-intro {
+  margin-top: 18px;
+  max-width: 760px;
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -.02em;
+  color: var(--muted);
+}
+
+.about-section {
+  max-width: 920px;
+}
+
+.about-section h2 {
+  margin: 0 0 10px;
+  font-size: 22px;
+  line-height: 1;
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+}
+
+.about-section p {
+  margin: 0;
+  max-width: 920px;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.5;
+}
   </style>
 </head>
 <body>
@@ -544,51 +582,33 @@
 
     <section id="view-film" class="hidden"></section>
 
-    <section id="view-about" class="hidden">
+<section id="view-about" class="hidden">
   <section class="section" style="padding-top:42px;border-top:0;">
     <div class="eyebrow">About</div>
-    <h1>Transparency for film credits</h1>
-    <div class="hero-sub" style="max-width:760px;font-size:18px;line-height:1.4;color:var(--muted);letter-spacing:0;">
-      FilmCheck is a reading tool, not a tribunal.
-    </div>
+    <h1 class="about-title">About FilmCheck</h1>
+    <div class="about-intro">FilmCheck is a reading tool, not a tribunal.</div>
   </section>
 
-  <section class="section">
-    <div class="section-grid">
-      <div><h2>What it does</h2></div>
-      <div><p>FilmCheck helps users read a film through the people behind it. It highlights documented legal or public-conduct signals linked to key credited figures.</p></div>
-    </div>
+  <section class="section about-section">
+    <h2>What it does</h2>
+    <p>FilmCheck helps users read a film through the people behind it. It highlights documented legal or public-conduct signals linked to key credited figures.</p>
   </section>
 
-  <section class="section">
-    <div class="section-grid">
-      <div><h2>How it works</h2></div>
-      <div><p>The score displayed on FilmCheck is an interpretation layer. It distinguishes convictions, proceedings, accusations and controversies, and is meant to help users understand context at a glance.</p></div>
-    </div>
+  <section class="section about-section">
+    <h2>How it works</h2>
+    <p>The score displayed on FilmCheck is an interpretation layer. It distinguishes convictions, proceedings, accusations and controversies, and is meant to help users understand context at a glance.</p>
   </section>
 
-  <section class="section">
-    <div class="section-grid">
-      <div><h2>Important nuance</h2></div>
-      <div><p>FilmCheck does not treat all signals as equal. Allegations, court proceedings, confirmed convictions and broader public controversies are separated clearly to avoid flattening very different situations into one judgment.</p></div>
-    </div>
+  <section class="section about-section">
+    <h2>Important nuance</h2>
+    <p>FilmCheck does not treat all signals as equal. Allegations, court proceedings, confirmed convictions and broader public controversies are separated clearly to avoid flattening very different situations into one judgment.</p>
+  </section>
+
+  <section class="section about-section">
+    <h2>Signal types</h2>
+    <p>FilmCheck separates convictions, proceedings, accusations and controversies, and shows them in a simple, readable way.</p>
   </section>
 </section>
-      <section class="section">
-        <div class="section-grid">
-          <div><h2>Signal types</h2></div>
-          <div><p>FilmCheck separates convictions, proceedings, accusations and controversies. A film page should show those signals clearly without turning into a technical dashboard.</p></div>
-        </div>
-      </section>
-    </section>
-
-    <section id="view-about" class="hidden">
-      <section class="section" style="padding-top:42px;border-top:0;">
-        <div class="eyebrow">About</div>
-        <h1>Transparency for film credits</h1>
-        <div class="hero-sub" style="max-width:760px;font-size:18px;line-height:1.4;color:var(--muted);letter-spacing:0;">FilmCheck is a reading tool, not a tribunal.</div>
-      </section>
-    </section>
 
     <footer class="footer">
       <div class="footer-links">
