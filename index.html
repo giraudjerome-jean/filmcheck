@@ -326,6 +326,12 @@
       height: 74px;
       display: block;
     }
+    .film-icon {
+  width: 74px;
+  height: 74px;
+  display: block;
+  object-fit: contain;
+}
 
     .score-meta {
       display: flex;
@@ -513,6 +519,7 @@
   .footer { grid-template-columns: 1fr; }
   .score-visual { gap: 12px; }
   .score-face svg { width: 66px; height: 66px; }
+  .film-icon { width: 66px; height: 66px; }
   .score-number { font-size: 30px; }
   .score-status { font-size: 20px; }
 }
@@ -810,14 +817,25 @@
       `;
     }
 
-    function tagClassFromStatus(status) {
-      const s = String(status || "").toLowerCase();
-      if (s.includes("none") || s.includes("clean") || s.includes("no signal") || s.includes("low")) return "green";
-      if (s.includes("limited") || s.includes("yellow")) return "yellow";
-      if (s.includes("moderate") || s.includes("proceeding") || s.includes("orange")) return "orange";
-      if (s.includes("high") || s.includes("conviction") || s.includes("red")) return "red";
-      return "yellow";
-    }
+    function getFilmIcon(title) {
+  const t = String(title || "").toLowerCase();
+
+  if (t.includes("barbie")) return "barbie.png";
+  if (t.includes("top gun")) return "topgun.png";
+  if (t.includes("joker")) return "joker.png";
+
+  return null;
+
+}
+
+function tagClassFromStatus(status) {
+  const s = String(status || "").toLowerCase();
+  if (s.includes("none") || s.includes("clean") || s.includes("no signal") || s.includes("low")) return "green";
+  if (s.includes("limited") || s.includes("yellow")) return "yellow";
+  if (s.includes("moderate") || s.includes("proceeding") || s.includes("orange")) return "orange";
+  if (s.includes("high") || s.includes("conviction") || s.includes("red")) return "red";
+  return "yellow";
+}
 
     function renderFilm(record) {
       if (!record || !record.title) return;
@@ -847,7 +865,11 @@
                 <div class="score-pill ${visual.tone}">${escapeHtml(visual.label)}</div>
 
                 <div class="score-visual">
-                  <div class="score-face">${renderFace(visual.face, visual.color)}</div>
+                  <div class="score-face">
+  ${getFilmIcon(record.title) 
+    ? `<img src="${getFilmIcon(record.title)}" alt="${escapeHtml(record.title)} icon" class="film-icon">`
+    : renderFace(visual.face, visual.color)}
+</div>
                   <div class="score-meta">
                     <div class="score-status">${escapeHtml(visual.label)}</div>
                     <div class="score-number">${displayScore}<span class="score-denom">/100</span></div>
