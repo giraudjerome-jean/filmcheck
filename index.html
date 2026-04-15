@@ -321,17 +321,21 @@
       gap: 14px;
     }
 
-    .score-face svg {
-      width: 74px;
-      height: 74px;
-      display: block;
-    }
-    .film-icon {
+    .score-face {
   width: 86px;
   height: 86px;
+  flex: 0 0 86px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-face svg,
+.film-icon {
+  width: 100%;
+  height: 100%;
   display: block;
   object-fit: contain;
-  margin: -6px;
 }
 
     .score-meta {
@@ -519,11 +523,16 @@
   .person-top { flex-direction: column; align-items: flex-start; }
   .footer { grid-template-columns: 1fr; }
   .score-visual { gap: 12px; }
-  .score-face svg { width: 66px; height: 66px; }
-  .film-icon {
+  .score-face {
   width: 76px;
   height: 76px;
-  margin: -5px;
+  flex: 0 0 76px;
+}
+
+.score-face svg,
+.film-icon {
+  width: 100%;
+  height: 100%;
 }
   .score-number { font-size: 30px; }
   .score-status { font-size: 20px; }
