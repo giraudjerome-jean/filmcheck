@@ -834,12 +834,11 @@
     function getFilmIcon(title) {
   const t = String(title || "").toLowerCase();
 
-  if (t.includes("barbie")) return "barbie.png";
-  if (t.includes("top gun")) return "topgun.png";
-  if (t.includes("joker")) return "joker.png";
+  if (t.includes("barbie")) return "barbie.png?v=2";
+  if (t.includes("top gun")) return "topgun.png?v=2";
+  if (t.includes("joker")) return "joker.png?v=2";
 
   return null;
-
 }
 
 function tagClassFromStatus(status) {
