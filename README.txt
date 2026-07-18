@@ -28,4 +28,5 @@ Behavior:
 - Every successful search updates `search_count` and `last_searched_at` inside the film payload
 - `/api/top-films` returns the five most concerning films
 - The ranking is driven mainly by the vigilance score, with a capped search-popularity boost
+- Person names, misspellings and other queries that do not resolve to an identifiable film are excluded
 - No additional Supabase table or schema migration is required for the ranking

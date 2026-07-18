@@ -60,6 +60,25 @@ function todayIsoDate() {
   return new Date().toISOString().slice(0, 10);
 }
 
+function isLikelyFilmRecord(payload) {
+  if (!payload || typeof payload !== "object") return false;
+  if (payload.record_type === "not_film") return false;
+  if (payload.record_type === "film") return true;
+
+  const subtitle = String(payload.subtitle || "");
+  const summary = String(payload.summary || "").slice(0, 320);
+  const text = `${subtitle} ${summary}`;
+  const explicitlyNotFilm =
+    /no (?:exact |identifiable |matching )?film|no evidence.*film|likely referring|record appears to concern|former film producer/i.test(
+      text
+    );
+  const hasReleaseYear = /\b(?:18|19|20)\d{2}\b/.test(text);
+  const hasFilmLanguage =
+    /\bfilm\b|\bmovie\b|\bdocumentary\b|\banimated\b|\bfeature\b/i.test(text);
+
+  return !explicitlyNotFilm && hasReleaseYear && hasFilmLanguage;
+}
+
 function supabaseHeaders() {
   return {
     apikey: process.env.SUPABASE_SERVICE_ROLE_KEY,
@@ -158,6 +177,12 @@ export default async function handler(req, res) {
     const existing = await getExistingFilm(title);
 
     if (existing) {
+      if (!isLikelyFilmRecord(existing)) {
+        return res.status(422).json({
+          error: "No identifiable film was found for this title.",
+        });
+      }
+
       const tracked = recordSearch(existing);
 
       // Search tracking must never prevent an existing film from loading.
@@ -178,6 +203,8 @@ Film title: ${title}
 Use web search and return ONLY valid JSON.
 
 Important rules:
+- first verify that the query refers to an actual released or announced film
+- set record_type to "not_film" when no identifiable film exists for the query
 - keep the tone factual and cautious
 - do not overstate accusations
 - separate convictions, proceedings, accusations, controversies
@@ -188,6 +215,7 @@ Important rules:
 
 Return exactly this JSON shape:
 {
+  "record_type": "film" | "not_film",
   "title": string,
   "subtitle": string,
   "status": "Low vigilance" | "Limited caution" | "Moderate caution" | "High caution",
@@ -238,7 +266,14 @@ Return exactly this JSON shape:
       return res.status(502).json({ error: "OpenAI did not return valid JSON" });
     }
 
+    if (parsed.record_type === "not_film") {
+      return res.status(422).json({
+        error: "No identifiable film was found for this title.",
+      });
+    }
+
     const payload = {
+      record_type: "film",
       title: parsed.title || title,
       subtitle: parsed.subtitle || "",
       status: parsed.status || "Limited caution",
@@ -264,6 +299,12 @@ Return exactly this JSON shape:
 
     if (!payload.people_count) {
       payload.people_count = payload.people.length;
+    }
+
+    if (!isLikelyFilmRecord(payload)) {
+      return res.status(422).json({
+        error: "No identifiable film was found for this title.",
+      });
     }
 
     await saveFilm(payload);

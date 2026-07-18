@@ -10,6 +10,25 @@ function clampScore(value) {
   return Math.max(0, Math.min(100, Number(value || 0)));
 }
 
+function isLikelyFilmRecord(payload) {
+  if (!payload || typeof payload !== "object") return false;
+  if (payload.record_type === "not_film") return false;
+  if (payload.record_type === "film") return true;
+
+  const subtitle = String(payload.subtitle || "");
+  const summary = String(payload.summary || "").slice(0, 320);
+  const text = `${subtitle} ${summary}`;
+  const explicitlyNotFilm =
+    /no (?:exact |identifiable |matching )?film|no evidence.*film|likely referring|record appears to concern|former film producer/i.test(
+      text
+    );
+  const hasReleaseYear = /\b(?:18|19|20)\d{2}\b/.test(text);
+  const hasFilmLanguage =
+    /\bfilm\b|\bmovie\b|\bdocumentary\b|\banimated\b|\bfeature\b/i.test(text);
+
+  return !explicitlyNotFilm && hasReleaseYear && hasFilmLanguage;
+}
+
 export default async function handler(req, res) {
   if (req.method !== "GET") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -45,6 +64,10 @@ export default async function handler(req, res) {
 
     const films = rows
       .map((row) => {
+        if (!isLikelyFilmRecord(row.payload)) {
+          return null;
+        }
+
         const rawScore = clampScore(
           row.score ?? row.payload?.vigilance_index
         );
@@ -67,7 +90,7 @@ export default async function handler(req, res) {
           status: row.status || row.payload?.status || "",
         };
       })
-      .filter((film) => film.title)
+      .filter((film) => film?.title)
       .sort((a, b) => {
         if (b.ranking_score !== a.ranking_score) {
           return b.ranking_score - a.ranking_score;
