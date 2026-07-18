@@ -86,10 +86,15 @@
 
     .hero {
       min-height: 76vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
+      gap: clamp(36px, 5vw, 72px);
+      align-items: center;
       padding: 60px 0 40px;
+    }
+
+    .hero-main {
+      min-width: 0;
     }
 
     .eyebrow {
@@ -104,7 +109,7 @@
       margin: 0;
       max-width: 1080px;
       font-weight: 600;
-      font-size: clamp(68px, 11vw, 140px);
+      font-size: clamp(68px, 9vw, 128px);
       line-height: .9;
       letter-spacing: -.045em;
       text-transform: uppercase;
@@ -184,42 +189,41 @@
     }
 
     .ranking-section {
-      padding: 42px 0 18px;
-      border-top: 1px solid var(--border);
+      width: 100%;
+      border: 1px solid var(--border);
+      background: rgba(13,13,13,0.74);
     }
 
     .ranking-header {
-      display: grid;
-      grid-template-columns: 1fr minmax(260px, 440px);
-      gap: 32px;
-      align-items: end;
-      margin-bottom: 28px;
+      padding: 18px;
+      border-bottom: 1px solid var(--border);
     }
 
     .ranking-header h2 {
       margin: 0;
-      max-width: 620px;
-      font-size: clamp(38px, 5vw, 68px);
+      font-size: 22px;
+      line-height: 1;
+      letter-spacing: -.025em;
     }
 
     .ranking-intro {
-      margin: 0;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.5;
+      margin: 10px 0 0;
+      color: var(--soft);
+      font-size: 11px;
+      line-height: 1.4;
     }
 
     .ranking-list {
-      border-bottom: 1px solid var(--border);
+      border: 0;
     }
 
     .ranking-row {
       width: 100%;
       display: grid;
-      grid-template-columns: 68px minmax(0, 1fr) auto;
-      gap: 18px;
+      grid-template-columns: 28px minmax(0, 1fr) auto;
+      gap: 10px;
       align-items: center;
-      padding: 20px 0;
+      padding: 13px 16px;
       color: var(--text);
       background: transparent;
       border: 0;
@@ -248,21 +252,22 @@
 
     .ranking-title {
       display: block;
-      font-size: clamp(24px, 3.6vw, 48px);
-      line-height: .95;
-      letter-spacing: -.035em;
+      font-size: 15px;
+      line-height: 1.08;
+      letter-spacing: -.02em;
       text-transform: uppercase;
       transition: color .18s ease;
     }
 
     .ranking-meta {
       display: block;
-      margin-top: 8px;
+      margin-top: 5px;
+      font-size: 9px;
     }
 
     .ranking-score {
-      min-width: 128px;
-      font-size: clamp(34px, 4vw, 58px);
+      min-width: 56px;
+      font-size: 24px;
       line-height: .9;
       letter-spacing: -.045em;
       text-align: right;
@@ -271,7 +276,7 @@
     .ranking-score span {
       margin-left: 4px;
       color: var(--soft);
-      font-size: 15px;
+      font-size: 10px;
       letter-spacing: 0;
     }
 
@@ -584,6 +589,17 @@
     }
 
     @media (max-width: 980px) {
+      .hero {
+        min-height: auto;
+        grid-template-columns: 1fr;
+        gap: 42px;
+        padding: 70px 0 40px;
+      }
+
+      .ranking-section {
+        max-width: 680px;
+      }
+
       .record-hero {
         grid-template-columns: 1fr;
         max-width: none;
@@ -629,19 +645,10 @@
   .score-number { font-size: 30px; }
   .score-status { font-size: 20px; }
 
-  .ranking-header {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-
   .ranking-row {
-    grid-template-columns: 42px minmax(0, 1fr) auto;
+    grid-template-columns: 28px minmax(0, 1fr) auto;
     gap: 10px;
-    padding: 17px 0;
-  }
-
-  .ranking-score {
-    min-width: 82px;
+    padding: 13px 14px;
   }
 }
     .about-title {
@@ -745,37 +752,37 @@
 
     <section id="view-home">
       <div class="hero">
-        <div class="eyebrow">Transparency tool for film credits</div>
-        <h1>FilmCheck</h1>
-        <div class="hero-sub">See the people behind a film before you watch it.</div>
+        <div class="hero-main">
+          <div class="eyebrow">Transparency tool for film credits</div>
+          <h1>FilmCheck</h1>
+          <div class="hero-sub">See the people behind a film before you watch it.</div>
 
-        <div class="search-wrap">
-          <form class="search" id="film-form">
-  <input id="film-input" type="text" placeholder="Enter a film title" />
-  <button id="search-button" type="submit">Search</button>
-</form>
+          <div class="search-wrap">
+            <form class="search" id="film-form">
+              <input id="film-input" type="text" placeholder="Enter a film title" />
+              <button id="search-button" type="submit">Search</button>
+            </form>
 
-<div id="loading-indicator" class="loading hidden">
-  <span id="loading-text">Searching</span><span class="dots"></span>
-</div>
+            <div id="loading-indicator" class="loading hidden">
+              <span id="loading-text">Searching</span><span class="dots"></span>
+            </div>
 
-<div class="examples-inline">Examples: Black Swan · Joker · Barbie</div>
-<div class="error-box hidden" id="error-box"></div>
+            <div class="examples-inline">Examples: Black Swan · Joker · Barbie</div>
+            <div class="error-box hidden" id="error-box"></div>
+          </div>
         </div>
-      </div>
 
-      <section class="ranking-section hidden" id="ranking-section" aria-labelledby="ranking-title">
-        <div class="ranking-header">
-          <div>
+        <section class="ranking-section hidden" id="ranking-section" aria-labelledby="ranking-title">
+          <div class="ranking-header">
             <div class="eyebrow">Live ranking</div>
             <h2 id="ranking-title">Most concerning films</h2>
+            <p class="ranking-intro">
+              Lowest FilmCheck scores. Public-record signals, not artistic quality.
+            </p>
           </div>
-          <p class="ranking-intro">
-            The lowest FilmCheck scores among searched titles. This ranking reflects public-record vigilance signals, not artistic quality.
-          </p>
-        </div>
-        <div class="ranking-list" id="ranking-list"></div>
-      </section>
+          <div class="ranking-list" id="ranking-list"></div>
+        </section>
+      </div>
     </section>
 
     <section id="view-film" class="hidden"></section>
