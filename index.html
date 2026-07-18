@@ -183,6 +183,98 @@
       color: var(--soft);
     }
 
+    .ranking-section {
+      padding: 42px 0 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    .ranking-header {
+      display: grid;
+      grid-template-columns: 1fr minmax(260px, 440px);
+      gap: 32px;
+      align-items: end;
+      margin-bottom: 28px;
+    }
+
+    .ranking-header h2 {
+      margin: 0;
+      max-width: 620px;
+      font-size: clamp(38px, 5vw, 68px);
+    }
+
+    .ranking-intro {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .ranking-list {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .ranking-row {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 68px minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: center;
+      padding: 20px 0;
+      color: var(--text);
+      background: transparent;
+      border: 0;
+      border-top: 1px solid var(--border);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .ranking-row:hover .ranking-title,
+    .ranking-row:focus-visible .ranking-title {
+      color: var(--red);
+    }
+
+    .ranking-row:focus-visible {
+      outline: 1px solid var(--border-strong);
+      outline-offset: 5px;
+    }
+
+    .ranking-rank,
+    .ranking-meta {
+      color: var(--soft);
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .ranking-title {
+      display: block;
+      font-size: clamp(24px, 3.6vw, 48px);
+      line-height: .95;
+      letter-spacing: -.035em;
+      text-transform: uppercase;
+      transition: color .18s ease;
+    }
+
+    .ranking-meta {
+      display: block;
+      margin-top: 8px;
+    }
+
+    .ranking-score {
+      min-width: 128px;
+      font-size: clamp(34px, 4vw, 58px);
+      line-height: .9;
+      letter-spacing: -.045em;
+      text-align: right;
+    }
+
+    .ranking-score span {
+      margin-left: 4px;
+      color: var(--soft);
+      font-size: 15px;
+      letter-spacing: 0;
+    }
+
     .hidden { display: none; }
 
     .footer {
@@ -536,6 +628,21 @@
 }
   .score-number { font-size: 30px; }
   .score-status { font-size: 20px; }
+
+  .ranking-header {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .ranking-row {
+    grid-template-columns: 42px minmax(0, 1fr) auto;
+    gap: 10px;
+    padding: 17px 0;
+  }
+
+  .ranking-score {
+    min-width: 82px;
+  }
 }
     .about-title {
   margin: 0;
@@ -656,6 +763,19 @@
 <div class="error-box hidden" id="error-box"></div>
         </div>
       </div>
+
+      <section class="ranking-section hidden" id="ranking-section" aria-labelledby="ranking-title">
+        <div class="ranking-header">
+          <div>
+            <div class="eyebrow">Live ranking</div>
+            <h2 id="ranking-title">Most concerning films</h2>
+          </div>
+          <p class="ranking-intro">
+            The lowest FilmCheck scores among searched titles. This ranking reflects public-record vigilance signals, not artistic quality.
+          </p>
+        </div>
+        <div class="ranking-list" id="ranking-list"></div>
+      </section>
     </section>
 
     <section id="view-film" class="hidden"></section>
@@ -714,6 +834,8 @@
     const errorBox = document.getElementById("error-box");
     const loader = document.getElementById("loading-indicator");
     const loaderText = document.getElementById("loading-text");
+    const rankingSection = document.getElementById("ranking-section");
+    const rankingList = document.getElementById("ranking-list");
     const LAST_RECORD_KEY = "filmcheck_last_record_v4";
 
     function escapeHtml(value) {
@@ -761,6 +883,52 @@
       if (score >= 35) return { tone: "orange", label: "Reserved", face: "meh", color: "#be8353" };
       if (score >= 10) return { tone: "red", label: "High concerns", face: "sad", color: "#c56666" };
       return { tone: "red", label: "Critical concerns", face: "dead", color: "#c56666" };
+    }
+
+    function formatSearchCount(value) {
+      const count = Math.max(1, Number(value || 1));
+      return `${count.toLocaleString("en-US")} ${count === 1 ? "search" : "searches"}`;
+    }
+
+    function renderRanking(films) {
+      if (!Array.isArray(films) || !films.length) {
+        rankingSection.classList.add("hidden");
+        rankingList.innerHTML = "";
+        return;
+      }
+
+      rankingList.innerHTML = films.map((film, index) => {
+        const score = Math.max(0, Math.min(100, Number(film.score || 0)));
+        const visual = getScoreVisual(score);
+
+        return `
+          <button class="ranking-row" type="button" data-film-title="${escapeHtml(film.title)}">
+            <span class="ranking-rank">${String(index + 1).padStart(2, "0")}</span>
+            <span>
+              <span class="ranking-title">${escapeHtml(film.title)}</span>
+              <span class="ranking-meta">${escapeHtml(visual.label)} · ${escapeHtml(formatSearchCount(film.search_count))}</span>
+            </span>
+            <span class="ranking-score">${score}<span>/100</span></span>
+          </button>
+        `;
+      }).join("");
+
+      rankingSection.classList.remove("hidden");
+    }
+
+    async function loadTopFilms() {
+      try {
+        const response = await fetch("/api/top-films");
+
+        if (!response.ok) {
+          throw new Error("Unable to load ranking");
+        }
+
+        const payload = await response.json();
+        renderRanking(payload.films);
+      } catch {
+        rankingSection.classList.add("hidden");
+      }
     }
 
     function renderFace(type, color) {
@@ -1032,6 +1200,15 @@ function stopLoadingMessages() {
       analyzeFilm(title);
     });
 
+    rankingList.addEventListener("click", function (event) {
+      const rankingButton = event.target.closest("[data-film-title]");
+      if (!rankingButton) return;
+
+      const title = rankingButton.getAttribute("data-film-title") || "";
+      input.value = title;
+      analyzeFilm(title);
+    });
+
     document.getElementById("go-home").addEventListener("click", function () {
       window.location.hash = "#/";
       showOnly("home");
@@ -1050,6 +1227,7 @@ function stopLoadingMessages() {
     }
   } else {
     showOnly("home");
+    loadTopFilms();
   }
 }
 

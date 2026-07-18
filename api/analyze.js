@@ -125,6 +125,16 @@ async function saveFilm(payload) {
   }
 }
 
+function recordSearch(payload) {
+  const previousCount = Number(payload?.search_count || 0);
+
+  return {
+    ...payload,
+    search_count: Number.isFinite(previousCount) ? previousCount + 1 : 1,
+    last_searched_at: new Date().toISOString(),
+  };
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -148,7 +158,16 @@ export default async function handler(req, res) {
     const existing = await getExistingFilm(title);
 
     if (existing) {
-      return res.status(200).json(existing);
+      const tracked = recordSearch(existing);
+
+      // Search tracking must never prevent an existing film from loading.
+      try {
+        await saveFilm(tracked);
+      } catch (trackingError) {
+        console.error("FilmCheck search tracking failed", trackingError);
+      }
+
+      return res.status(200).json(tracked);
     }
 
     const prompt = `
@@ -239,6 +258,8 @@ Return exactly this JSON shape:
       },
       people: normalizePeople(parsed.people),
       sources: normalizeSources(parsed.sources),
+      search_count: 1,
+      last_searched_at: new Date().toISOString(),
     };
 
     if (!payload.people_count) {

@@ -25,3 +25,7 @@ Behavior:
 - Backend checks Supabase first
 - If found: returns saved record instantly
 - If not found: calls OpenAI with web search, stores the record in Supabase, then returns it
+- Every successful search updates `search_count` and `last_searched_at` inside the film payload
+- `/api/top-films` returns the five most concerning films
+- The ranking is driven mainly by the vigilance score, with a capped search-popularity boost
+- No additional Supabase table or schema migration is required for the ranking
